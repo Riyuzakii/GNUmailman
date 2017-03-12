@@ -1,0 +1,5 @@
+postorius.db
+static
+venv
+settings_local.py
+logs/*.log

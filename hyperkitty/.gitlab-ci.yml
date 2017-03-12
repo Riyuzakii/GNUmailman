@@ -1,0 +1,35 @@
+image: maxking/mailman-ci-runner
+
+stages:
+  - test
+  - quality-assurance
+
+django-1.8:
+  stage: test
+  script:
+  - tox -e py27-django18-head
+
+django-1.9:
+  stage: test
+  script:
+  - tox -e py27-django19-head
+
+django-1.10:
+  stage: test
+  script:
+  - tox -e py27-django110-head
+
+lint:
+  stage: quality-assurance
+  script:
+  - tox -e lint
+
+docs:
+  stage: quality-assurance
+  script:
+  - tox -e docs
+
+coverage:
+  stage: quality-assurance
+  script:
+    - tox -e py27-django110-coverage-head

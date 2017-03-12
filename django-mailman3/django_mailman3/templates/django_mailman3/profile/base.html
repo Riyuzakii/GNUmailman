@@ -1,0 +1,35 @@
+{% extends "django_mailman3/base.html" %}
+{% load i18n %}
+
+{% block head_title %}
+{% trans "User Profile" %} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="user-profile">
+
+    <h1>{% trans "User profile" %} <small>{% trans "for" %} {{ user }}</small></h1>
+
+    <ul class="nav nav-tabs">
+        <li role="presentation" {% if form.first_name %} class="active" {% endif %}>
+            <a href="{% url "mm_user_profile" %}">{% trans "Account" %}</a>
+        </li>
+        <li role="presentation" {% if form.password2 %} class="active" {% endif %}>
+            <a href="{% url "account_change_password" %}">{% trans "Change Password" %}</a>
+        </li>
+        <li role="presentation" {% if form.email %} class="active" {% endif %}>
+            <a href="{% url "account_email" %}">{% trans "E-mail Addresses" %}</a>
+        </li>
+        <li role="presentation" {% if form.accounts %} class="active" {% endif %}>
+            <a href="{% url "socialaccount_connections" %}">{% trans "Account Connections" %}</a>
+        </li>
+    </ul>
+
+    <div class="user-profile-content">
+        {% block user_profile_content %}{% endblock %}
+    </div>
+
+</div>
+
+{% endblock %}

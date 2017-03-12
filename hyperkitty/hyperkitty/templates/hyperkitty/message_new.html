@@ -1,0 +1,63 @@
+{% extends "hyperkitty/base.html" %}
+{% load i18n %}
+{% load gravatar %}
+{% load hk_generic %}
+{% load bootstrap_tags %}
+
+
+{% block head_title %}
+{% trans "Create a new thread" %} - {{ mlist.display_name|default:mlist.name }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+{% include 'hyperkitty/fragments/month_list.html' %}
+
+    <div class="col-sm-10">
+
+        <div class="message-header">
+            <h1>
+                {% trans "Create a new thread" %}
+                <small>{% trans 'in' %} {{ mlist.display_name|default:mlist.name }}</small>
+            </h1>
+        </div>
+
+        <div class="new-thread-form">
+            <form method="post" enctype="multipart/form-data"
+                  action="{% url 'hk_message_new' mlist_fqdn=mlist.name %}">
+
+                {% csrf_token %}
+                <ul class="list-unstyled">
+                {% for error in post_form.non_field_errors %}
+                    <li><i class="fa fa-li fa-times-circle"></i> {{ error }}</li>
+                {% endfor %}
+                </ul>
+
+                {% for field in post_form.visible_fields %}
+                {% if field != post_form.sender %}
+                <div class="form-group {% if field.errors %}has-error{% endif %}">
+                    <label class="control-label" for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+                    {{ field|add_form_control }}
+                    <span class="help-block">{{ field.errors }}</span>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                {% include "hyperkitty/fragments/send_as.html" with form=post_form %}
+
+                <p class="buttons">
+                    <button type="submit" class="submit btn btn-primary">{% trans "Send" %}</button>
+                    {% trans "or" %} <a class="cancel" href="{% url 'hk_archives_latest' mlist_fqdn=mlist.name %}">{% trans "cancel" %}</a>
+                </p>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

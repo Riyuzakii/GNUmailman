@@ -1,0 +1,28 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+
+{% block head_title %}
+{% trans 'Archival options' %} | {{ list.fqdn_listname }} - {{ block.super }}
+{% endblock %}
+
+{% load nav_helpers %}
+
+{% block content %}
+
+    {% list_nav 'list_archival_options' 'Archivers' %}
+
+    <form action="{% url 'list_archival_options' list.list_id %}" method="POST">
+        {% csrf_token %}
+        {% for choice in form.archivers %}
+            <div class="checkbox">
+                <label>
+                    {{ choice }} {{ choice.label }}
+                </label>
+            </div>
+        {% endfor %}
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">{% trans 'Save archivers' %}</button>
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+
+{% block head_title %}
+{% trans 'Add domain' %} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h2>{% trans 'Add a new domain' %}</h2>
+    </div>
+
+    <form action="{% url 'domain_new' %}" method="post" class="form-horizontal">
+        {% bootstrap_form_horizontal form 2 8 'Create domain' %}
+    </form>
+
+{% endblock content %}

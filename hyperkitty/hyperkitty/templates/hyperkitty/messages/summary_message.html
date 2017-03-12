@@ -1,0 +1,41 @@
+{% load i18n %}
+{% load gravatar %}
+{% load hk_generic %}
+
+        <div class="thread">
+            <div class="thread-info">
+                <div class="thread-email row">
+                    <div class="hidden-tn hidden-xxs hidden-xs col-sm-1 sender gravatar">
+                        {% if email.sender.address %}
+                        {% gravatar email.sender.address 120 %}
+                            <br />
+                        {% else %}
+                                <div class="gravatar-placeholder">&nbsp;</div>
+                        {% endif %}
+                        <!-- {{ email.sender_name|default:email.sender.address|escapeemail }} -->
+                    </div>
+                    <div class="col-tn-12 col-sm-10 col-md-7 col-lg-8">
+                        <span class="thread-title">
+                            <a name="{{email.message_id_hash}}"
+                               href="{% url 'hk_message_index' mlist_fqdn=email.mailinglist_id message_id_hash=email.message_id_hash %}"
+                               >{{ email.subject|strip_subject:mlist }}</a>
+                        </span>
+                        <div>
+                            {% blocktrans with name=email.sender_name|default:email.sender.address|escapeemail %}
+                                by {{ name }}
+                            {% endblocktrans %}
+                        </div>
+                        <span class="expander collapsed hidden-tn hidden-xxs hidden-xs" style="color: #999">
+                            {{ email.content|urlizetrunc:76|escapeemaillinks }}
+                        </span>
+                    </div>
+                    <div class="col-tn-4 col-sm-4 col-sm-offset-2 col-md-offset-0 col-md-3 col-lg-3 thread-date"
+                         title="{{ email.date|date:'l, j F Y H:i:s' }}">
+                        {{ email.date|timesince }}
+                    </div>
+                    <div class="col-tn-7 col-sm-4 col-md-3 col-lg-3">
+                        {% include "hyperkitty/fragments/like_form.html" with message_id_hash=email.message_id_hash object=email %}
+                    </div>
+                </div>
+            </div>
+        </div>

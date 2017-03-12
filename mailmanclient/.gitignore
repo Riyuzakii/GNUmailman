@@ -1,0 +1,8 @@
+build
+dist
+mailman.client.egg-info
+.tox
+__pycache__
+*.egg-info
+*.pyc
+_build/

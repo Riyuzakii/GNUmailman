@@ -1,0 +1,22 @@
+Metadata-Version: 1.1
+Name: flufl.bounce
+Version: 3.0
+Summary: Email bounce detectors.
+Home-page: https://fluflbounce.readthedocs.io/en/latest/
+Author: Barry Warsaw
+Author-email: barry@python.org
+License: ASLv2
+Download-URL: https://pypi.python.org/pypi/flufl.bounce
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Communications :: Email
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

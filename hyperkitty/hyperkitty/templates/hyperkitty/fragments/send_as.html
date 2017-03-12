@@ -1,0 +1,18 @@
+{% load i18n %}
+
+{% if form.sender.choices|length > 1 %}
+<p class="text-muted send-as">
+    {% trans "This message will be sent as:" %}
+    <a href="" class="send-as-default" title="{% trans 'Change sender' %}">
+        {{ form.sender.value }}</a>
+    {{ form.sender }}
+    {% comment %}
+        Open a new window. I know it's bad behavior but there's a big risk
+        of a user loosing the message they are composing.
+    {% endcomment %}
+    <a href="{% url 'account_email' %}"
+       target="_blank" class="send-as-add-address">
+        {% trans "Link another address" %}
+        <i class="fa fa-external-link" aria-hidden="true"></i></a>
+</p>
+{% endif %}

@@ -1,0 +1,7 @@
+include *.py MANIFEST.in *.cfg *.ini COPYING.LESSER
+global-include *.txt *.rst *.yaml
+include Makefile
+prune _build
+prune dist
+prune .tox
+exclude .bzrignore

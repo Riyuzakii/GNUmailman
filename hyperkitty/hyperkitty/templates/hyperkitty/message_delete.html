@@ -1,0 +1,54 @@
+{% extends "hyperkitty/base.html" %}
+{% load i18n %}
+{% load gravatar %}
+{% load hk_generic %}
+
+
+{% block title %}
+{% trans "Delete message(s)" %} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+{# {% include 'hyperkitty/fragments/month_list.html' %} #}
+
+    <div class="col-sm-10">
+
+        <div class="message-header">
+            <h1>
+                {% trans "Delete message(s)" %}
+            </h1>
+        </div>
+
+        <p>
+        {% blocktrans with count=form.initial.email|length %}
+        {{ count }} message(s) will be deleted. Do you want to continue?
+        {% endblocktrans %}
+        </p>
+
+        <form method="post" enctype="multipart/form-data" action="{{ form_action }}">
+
+            {% csrf_token %}
+            <ul class="list-unstyled">
+            {% for error in form.non_field_errors %}
+                <li><i class="fa-li fa fa-times-circle"></i> {{ error }}</li>
+            {% endfor %}
+            </ul>
+            <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                {{ form.email }}
+                <span class="help-block">{{ form.email.errors }}</span>
+            </div>
+
+            <p class="buttons">
+                <button type="submit" class="submit btn btn-primary">{% trans "Delete" %}</button>
+                {% trans "or" %} <a class="cancel" href="{{ cancel_url }}">{% trans "cancel" %}</a>
+            </p>
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

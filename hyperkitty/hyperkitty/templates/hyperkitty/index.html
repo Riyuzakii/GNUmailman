@@ -1,0 +1,288 @@
+{% extends "hyperkitty/base.html" %}
+{% load i18n %}
+{% load hk_generic %}
+{% load pagination %}
+{% load staticfiles %}
+
+
+{% block head_title %}
+{% trans 'Available lists' %} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="all-lists">
+
+<div class="row header">
+    {# This version of the sort-by options shows up on larger screens; hidden-xs and hidden-tn are Bootstrap options to hide it at tiny or small sizes. #}
+    <nav class="sort-mode right hidden-tn hidden-xs col-sm-6 col-sm-push-6 col-md-4 col-md-push-8">
+        <ul class="list-unstyled list-inline">
+            <li>
+               {% if sort_mode == "popular" %}
+               <span class="active">{% trans 'Most popular' %}</span>
+               {% else %}
+                <a href="{% url 'hk_root' %}?{% add_to_query_string "sort" "popular" %}"
+                   data-toggle="tooltip" data-placement="bottom"
+                   title="{% trans 'Sort by number of recent participants' %}"
+                   >{% trans 'Most popular' %}</a>
+               {% endif %}
+            </li>
+            <li>
+               {% if sort_mode == "active" %}
+               <span class="active">{% trans 'Most active' %}</span>
+               {% else %}
+               <a href="{% url 'hk_root' %}?{% add_to_query_string "sort" "active" %}"
+                  data-toggle="tooltip" data-placement="bottom"
+                  title="{% trans 'Sort by number of recent discussions' %}"
+                  >{% trans 'Most active' %}</a>
+               {% endif %}
+            </li>
+            <li>
+               {% if sort_mode == "name" %}
+               <span class="active">{% trans 'By name' %}</span>
+               {% else %}
+               <a href="{% url 'hk_root' %}?{% add_to_query_string "sort" "name" %}"
+                  data-toggle="tooltip" data-placement="bottom"
+                  title="{% trans 'Sort alphabetically' %}"
+                  >{% trans 'By name' %}</a>
+               {% endif %}
+            </li>
+            <li>
+               {% if sort_mode == "creation" %}
+               <span class="active">{% trans 'Newest' %}</span>
+               {% else %}
+                <a href="{% url 'hk_root' %}?{% add_to_query_string "sort" "creation" %}"
+                   data-toggle="tooltip" data-placement="bottom"
+                   title="{% trans 'Sort by list creation date' %}"
+                   >{% trans 'Newest' %}</a>
+               {% endif %}
+            </li>
+        </ul>
+    </nav>
+    <h1 class="col-tn-12 col-xs-5">
+        {% trans 'Available lists' %}
+    </h1>
+    {# This version of the sort-by options shows up on tablets/mobile phones. #}
+    <div class="btn-group pull-right col-tn-5 col-xs-3 hidden-sm hidden-md hidden-lg">
+        <button type="button" class="btn btn-sm btn-default dropdown-toggle pull-right" data-toggle="dropdown">
+            {% trans 'Sort by' %} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a href="{% url 'hk_root' %}?{% add_to_query_string "sort" "popular" %}">{% trans 'Most popular' %}</a>
+            </li>
+            <li>
+                <a href="{% url 'hk_root' %}?{% add_to_query_string "sort" "active" %}">{% trans 'Most active' %}</a>
+            </li>
+            <li>
+                <a href="{% url 'hk_root' %}?{% add_to_query_string "sort" "name" %}">{% trans 'By name' %}</a>
+            </li>
+            <li>
+                <a href="{% url 'hk_root' %}?{% add_to_query_string "sort" "creation" %}">{% trans 'Newest' %}</a>
+            </li>
+        </ul>
+    </div>
+</div> <!--/row, for title & header -->
+
+<div class="row filter-lists">
+    <div class="col-tn-12 col-xs-7 col-md-8">
+            {% if all_lists %}
+            <p class="hide-switches">
+                <label><input type="checkbox" value="inactive" checked="checked" />{% trans "Hide inactive" %}</label>
+                <label
+                    {% if sort_mode == "active" or sort_mode == "popular" %}
+                    data-toggle="tooltip" data-placement="bottom"
+                    title="{% trans 'Private lists are always hidden in this sort mode' %}"
+                    {% endif %}
+                    ><input type="checkbox" value="private"
+                            {% if sort_mode == "active" or sort_mode == "popular" %}
+                            checked="checked" disabled="disabled"
+                            {% endif %}
+                            />{% trans "Hide private" %}</label>
+            </p>
+            {% endif %}
+    </div>
+    <div class="pull-right col-tn-12 col-xs-5 col-md-3">
+        <form method="get" action="">
+            <input name="name" type="text" class="form-control" id="focusedInput"
+                   placeholder="{% trans 'Find list' %}"
+                   />
+        </form>
+    </div>
+</div> <!--/row, for switches & filter -->
+
+<!-- condensed table for tiny & xsmall screens -->
+<div class="row lists hidden-sm hidden-md hidden-lg">
+    <div class="col-tn-12">
+        {% if all_lists %}
+        <table class="lists table">
+            <tbody>
+            {% for mlist in all_lists %}
+                <tr class="list
+                   {% if mlist.is_private %}
+                   private
+                   {% elif mlist.recent_threads_count == 0 %}
+                   inactive
+                   {% endif %}
+                   "
+                   data-list-name="{{ mlist.name }}">
+                    <td>
+                        {% ifchanged mlist.name|first %}<a name="{{ mlist.name|first }}" />{% endifchanged %}
+                        {% if mlist.is_new %}
+                        <span class="new label label-default">{% trans 'new' %}</span>
+                        {% endif %}
+                         <a href="{% url 'hk_list_overview' mlist_fqdn=mlist.name %}"
+                            class="list-name">
+                             {% if mlist.display_name %}
+                                 {{ mlist.display_name }}
+                             {% else %}
+                                 {{ mlist.name|until:"@" }}
+                             {% endif %}
+                         </a>
+                        {% if mlist.is_private %}
+                        <span class="list-tags">{% trans "private" %}</span>
+                        {% elif mlist.recent_threads_count == 0 %}
+                        <span class="list-tags">{% trans "inactive" %}</span>
+                        {% endif %}
+                        <br />
+                        <span class="list-address">{{ mlist.name }}</span>
+                        <span class="list-description">{{ mlist.description|default_if_none:"" }}</span>
+                        <div class="chart hidden-xs">
+                            <img alt="{% trans 'Loading...' %}" class="ajaxloader" src="{% static 'hyperkitty/img/ajax-loader.gif' %}" />
+                        </div>
+                        <ul class="list-stats list-unstyled">
+                            <li>
+                                <i class="fa fa-user"></i>
+                                {% if mlist.can_view %}
+                                {{ mlist.recent_participants_count|default_if_none:"..." }}
+                                {% else %}
+                                ...
+                                {% endif %}
+                                {% trans 'participants' %}
+                            </li>
+                            <li>
+                                <i class="fa fa-comments"></i>
+                                {% if mlist.can_view %}
+                                {{ mlist.recent_threads_count|default_if_none:"..." }}
+                                {% else %}
+                                ...
+                                {% endif %}
+                                {% trans 'discussions' %}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table> <!-- /table, main-content -->
+        {% else %}
+        <p>{% trans "No archived list yet." %}</p>
+        {% endif %}
+    </div>
+</div> <!-- /row, for lists -->
+
+<div class="row lists hidden-tn hidden-xs">
+    <div class="col-sm-12">
+        {% if all_lists %}
+        <table class="lists table">
+            <!-- headings only shown in screens >= 480px -->
+            <thead class="hidden-xs">
+                <tr>
+                    <th class="col-sm-6 col-md-3 col-lg-3">{% trans 'List' %}</th>
+                    <th class="hidden-sm col-md-5 col-lg-5">{% trans 'Description' %}</th>
+                    <th class="col-sm-6 col-md-4 col-lg-4" colspan=2>{% trans 'Activity in the past 30 days' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for mlist in all_lists %}
+                <tr class="list
+                   {% if mlist.is_private %}
+                   private
+                   {% elif mlist.recent_threads_count == 0 %}
+                   inactive
+                   {% endif %}
+                   "
+                   data-list-name="{{ mlist.name }}">
+                    <!-- tiny/xsmall screens have 1 column, small screens have 2 columns, med/large screen have 3 columns -->
+                    <td>
+                        {% ifchanged mlist.name|first %}<a name="{{ mlist.name|first }}" />{% endifchanged %}
+                        {% if mlist.is_new %}
+                        <span class="new label label-default">{% trans 'new' %}</span>
+                        {% endif %}
+                         <a href="{% url 'hk_list_overview' mlist_fqdn=mlist.name %}"
+                            class="list-name">
+                             {% if mlist.display_name %}
+                                 {{ mlist.display_name }}
+                             {% else %}
+                                 {{ mlist.name|until:"@" }}
+                             {% endif %}
+                         </a>
+                        {% if mlist.is_private %}
+                        <span class="list-tags">{% trans "private" %}</span>
+                        {% elif mlist.recent_threads_count == 0 %}
+                        <span class="list-tags">{% trans "inactive" %}</span>
+                        {% endif %}
+                        <br />
+                        <span class="list-address">
+                            {{ mlist.name }}
+                        </span>
+                    </td>
+                    <td class="list-description hidden-sm">
+                        {{ mlist.description|default_if_none:"" }}
+                    </td>
+                    <td class="statistics">
+                        <ul class="list-stats list-unstyled">
+                            <li>
+                                <i class="fa fa-user"></i>
+                                {% if mlist.can_view %}
+                                {{ mlist.recent_participants_count|default_if_none:"..." }}
+                                {% else %}
+                                ...
+                                {% endif %}
+                                {% trans 'participants' %}
+                            </li>
+                            <li>
+                                <i class="fa fa-comments"></i>
+                                {% if mlist.can_view %}
+                                {{ mlist.recent_threads_count|default_if_none:"..." }}
+                                {% else %}
+                                ...
+                                {% endif %}
+                                {% trans 'discussions' %}
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="activity">
+                        <div class="chart">
+                            <img alt="{% trans 'Loading...' %}" class="ajaxloader" src="{% static 'hyperkitty/img/ajax-loader.gif' %}" />
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table> <!-- /table, main-content -->
+        {% else %}
+        <p>{% trans "No archived list yet." %}</p>
+        {% endif %}
+
+    </div> <!-- /container for table -->
+
+</div> <!-- /row, for lists -->
+
+{% paginator all_lists %}
+
+<img class="logo" alt="HyperKitty" src="{% static 'hyperkitty/img/logo.png' %}" />
+
+</div> <!-- /all-lists, outer-wrapper -->
+
+{% endblock %}
+
+{% block additionaljs %}
+
+<script>
+    $(function() {
+        setup_index("{% url 'hk_list_recent_activity' 'PLACEHOLDER@PLACEHOLDER' %}");
+    });
+</script>
+
+{% endblock %}

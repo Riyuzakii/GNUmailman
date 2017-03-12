@@ -1,0 +1,242 @@
+{% extends "hyperkitty/base.html" %}
+
+{% load i18n %}
+{% load hk_generic %}
+{% load gravatar %}
+{% load staticfiles %}
+
+
+{% block head_title %}
+{{ mlist.display_name|default:mlist.name }} - {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+
+{% include 'hyperkitty/fragments/month_list.html' with pagename='overview' %}
+
+<div class="overview col-tn-12 col-sm-10">
+    <div class="row">
+
+    <div class="col-tn-12 col-sm-4">
+        <section id="title">
+            <h2>
+                {% if mlist.display_name %}
+                    {{ mlist.display_name }}
+                {% else %}
+                    {{ mlist.name|until:"@" }}
+                {% endif %}
+            </h2>
+            <p id="description">{{ mlist.description|default_if_none:"" }}</p>
+        </section> <!-- /title & description -->
+
+        <ul class="nav nav-tabs hidden-sm hidden-md hidden-lg">
+            <li class="active">
+                <a href="#home">{% trans "Home" %}</a>
+            </li>
+            <li>
+                <a href="#stats">{% trans "Stats" %}</a>
+            </li>
+            <li class="dropdown">
+                <a href="" id="navbarDiscussionsDrop" class="dropdown-toggle" data-toggle="dropdown">{% trans "Discussions" %} <b class="caret"></b></a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="navbarDiscussionsDrop">
+                    <li>
+                        <a href="#most-recent" tabindex="-1">{% trans "most recent" %}</a>
+                    </li>
+                    <li>
+                        <a href="#most-popular" tabindex="-1">{% trans "most popular" %}</a>
+                    </li>
+                    <li>
+                        <a href="#most-active" tabindex="-1">{% trans "most active" %}</a>
+                    </li>
+                    {% if use_mockups %}
+                    <li>
+                        <a href="#by-category" tabindex="-1">{% trans "by category" %}</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </li>
+            <li class="dropdown">
+                {% include 'hyperkitty/fragments/month_list.html' with show_dropdown='True' pagename='overview' %}
+            </li>
+        </ul>
+
+        <div class="row">
+            <a id="home"></a>
+            <div class="list-actions col-tn-6 col-sm-4">
+                <a href="{% url "hk_message_new" mlist_fqdn=mlist.name %}"
+                    class="btn btn-default{% if not user.is_authenticated %} disabled" title="{% trans 'You must be logged-in to create a thread.' %}{% endif %}">
+                    <i class="fa fa-plus"></i>
+                    <span class="hidden-tn hidden-xs">Start a n</span><span class="hidden-sm hidden-md hidden-lg">N</span>ew thread
+                </a>
+                {% if 'postorius' in INSTALLED_APPS %}
+                <!-- Subscription -->
+                <a class="btn btn-default" href="{% url 'list_summary' mlist.list_id %}">
+                  <i class="fa fa-inbox"></i>
+                  <span class="hidden-tn hidden-xs">Manage s</span><span class="hidden-sm hidden-md hidden-lg">S</span>ubscription</a>
+                {% endif %}
+            </div>
+            <form name="search" method="get" action="{% url 'hk_search' %}" class="searchbar col-tn-8 col-xs-4 hidden-sm hidden-md hidden-lg" role="search">
+                {% if mlist %}<input type="hidden" name="list" value="{{ mlist.name }}" />{% endif %}
+                <input id="nav-tab-search" name="q" type="text" class="form-control"
+                       placeholder="{% trans 'Search this list' %}"
+                       {% if query %}value="{{ query }}"{% endif %}
+                       />
+            </form>
+        </div> <!-- /container, navbar & search (tiny/xs screens), new thread button -->
+    </div> <!-- /container, title/description + the elements above -->
+
+    {% if user.is_authenticated %}
+    <div class="discussions pull-right col-tn-12 col-sm-8">
+        <section id="flagged">
+            <h3>{% trans "Discussions You've Flagged" %} ({{ flagged_threads|length }})
+                {% if flagged_threads %}<i class="fa fa-caret-right"></i>{% endif %}
+            </h3>
+            {% include "hyperkitty/fragments/overview_threads.html" with threads=flagged_threads empty=empty_messages.flagged %}
+        </section>
+        <section id="posted-to">
+            <h3>{% trans "Discussions You've Posted to" %} ({{ threads_posted_to|length }})
+                {% if threads_posted_to %}<i class="fa fa-caret-right"></i>{% endif %}
+            </h3>
+            {% include "hyperkitty/fragments/overview_threads.html" with threads=threads_posted_to empty=empty_messages.posted %}
+        </section>
+    </div> <!-- /home, personalized threads lists -->
+    {% endif %}
+
+    <div class="discussions pull-right col-tn-12 col-sm-8">
+
+        <div class="anchor-link"><a id="most-recent"></a></div>
+        <section id="most-recent">
+            <h3>{% trans "Recently active discussions" %}</h3>
+            {% include "hyperkitty/fragments/overview_threads.html" with threads=most_active_threads empty=empty_messages.active %}
+        </section>
+
+        <div class="anchor-link"><a id="most-popular"></a></div>
+        <section id="most-popular">
+            <h3>{% trans "Most popular discussions" %}</h3>
+            {% include "hyperkitty/fragments/overview_threads.html" with threads=pop_threads empty=empty_messages.popular %}
+        </section>
+
+        <div class="anchor-link"><a id="most-active"></a></div>
+        <section id="most-active">
+            <h3>{% trans "Most active discussions" %}</h3>
+            {% include "hyperkitty/fragments/overview_threads.html" with threads=top_threads empty=empty_messages.active %}
+        </section>
+
+        {% if use_mockups %}
+        <div class="anchor-link"><a id="by-category"></a></div>
+        <section id="by-category">
+            <h3>{% trans "Discussion by category" %}</h3>
+            {% for category, threads in threads_by_category.items %}
+                <h4 class="label" style="background-color:{{category.color}}"
+                   >{{ category.name|upper }}
+                </h4>
+                {% include "hyperkitty/fragments/overview_threads.html" with threads=threads|slice:":5" %}
+            {% empty %}
+                <p>{% trans "No category has been set this month (yet)." %}</p>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+    </div> <!-- /container, for thread lists -->
+
+    <div class="stats col-tn-12 col-sm-4">
+        <div class="anchor-link">
+            <a id="stats"></a>
+        </div>
+        <h3>{% trans "Activity Summary" %}</h3>
+        <div class="chart">
+            <p class="caption">{% trans "Post volume over the past <strong>30</strong> days." %}</p>
+            <img alt="{% trans 'Loading...' %}" class="ajaxloader" src="{% static 'hyperkitty/img/ajax-loader.gif' %}" />
+        </div>
+
+        <p class="duration-text">
+            <span class="hidden-tn hidden-xs hidden-sm">{% trans "The following statistics are from" %} </span>
+            <span class="hidden-md hidden-lg">{% trans "In" %}</span>
+            {% trans "the past <strong>30</strong> days:" %}
+        </p>
+        <ul class="list-stats list-unstyled">
+            <li><i class="fa fa-user"></i>{{ mlist.recent_participants_count }} {% trans "participants" %}</li>
+            <li><i class="fa fa-comments"></i>{{ mlist.recent_threads.count }} {% trans "discussions" %}</li>
+        </ul>
+
+        <div class="row">
+        <section id="most-active-poster" class="col-tn-12 col-xs-6 col-sm-12">
+            <h3>{% trans "Most active posters" %}</h3>
+            {% for poster in mlist.top_posters %}
+            <div class="maker row">
+                <div class="inline-block maker-id col-tn-1">
+                    #{{forloop.counter}}
+                </div>
+                <div class="inline-block gravatar col-tn-3 col-xs-4 col-md-3">
+                    {% gravatar poster.address 120 %}
+                    <br />
+                </div>
+                <div class="gravatar-details inline-block col-tn-7 col-xs-6 col-md-7">
+                    <ul class="list-unstyled">
+                        <li><span class="maker-name">
+                            {% if poster.mailman_id %}
+                            <a href="{% url 'hk_public_user_profile' user_id=poster.mailman_id %}"
+                               title="{% trans "See the profile" %}"
+                                >{{ poster.name|escapeemail }}</a>
+                            {% else %}
+                                {{ poster.name|escapeemail }}
+                            {% endif %}
+                        </span></li>
+                        <li><span class="score">{{ poster.count }}</span> {% trans "posts" %}</li>
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+
+        </section>
+
+        {% if top_author %}
+        <section id="discussion-maker" class="col-tn-12 col-xs-6 col-sm-12">
+            <h3>{% trans "Prominent posters" %}</h3>
+            {% for author in top_author %}
+            <div class="maker row">
+                <div class="inline-block maker-id col-tn-1">
+                    #{{forloop.counter}}
+                </div>
+                <div class="inline-block gravatar col-tn-3 col-xs-4 col-md-3">
+                    {% if author.email %}
+                    {% gravatar author.email 120 %}
+                    <br />
+                    {% endif %}
+                </div>
+                <div class="gravatar-details inline-block col-tn-7 col-xs-6 col-md-7">
+                    <ul class="list-unstyled">
+                        <li><span class="maker-name">{{ author.name }}</span></li>
+                        <li><span class="score">+{{author.kudos}}</span> {% trans "kudos" %}</li>
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        </div>
+    </div> <!-- /container, for list stats -->
+
+    </div> <!-- /row, container for home, overview, & thread lists -->
+
+    <a href="#" class="back-to-top hidden-tn hidden-sm hidden-md hidden-lg"><span class="glyphicon glyphicon-arrow-up"></span></a>
+
+</div> <!-- /overview, main content -->
+
+</div> <!-- /row, outer container -->
+
+{% endblock %}
+
+{% block additionaljs %}
+
+<script type="text/javascript" >
+    $(document).ready(function() {
+        setup_overview("{% url 'hk_list_recent_activity' mlist.name %}");
+    });
+</script>
+
+{% endblock %}

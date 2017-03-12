@@ -1,0 +1,111 @@
+{% extends "hyperkitty/base.html" %}
+{% load i18n %}
+{% load gravatar %}
+{% load hk_generic %}
+{% load pagination %}
+
+
+{% block head_title %}
+{% trans "Search results for" %} "{{ query }}"{% if mlist %} - {{ mlist.display_name|default:mlist.name }} {% endif %} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+{% include 'hyperkitty/fragments/month_list.html' %}
+
+    <div id="thread-list" class="search-results col-sm-10">
+
+        <div class="thread-list-header row">
+            {% if mlist %}
+            <h1>
+                <a href="{% url 'hk_list_overview' mlist_fqdn=mlist.name %}"
+                   class="list-name">
+                    {% if mlist.display_name %}
+                        {{ mlist.display_name }}
+                    {% else %}
+                        {{ mlist.name|until:"@" }}
+                    {% endif %}
+                </a>
+                <small>{% trans "search results" %}</small>
+            {% else %}
+            <h1>{% trans "Search results" %}
+            {% endif %}
+            <small>{% trans 'for query' %} "{{ query }}"</small></h1>
+
+            {% if mlist.display_name %}
+            <span class="list-address hidden-tn hidden-xs hidden-sm col-md-4">
+                {{ mlist.name }}
+            </span>
+            {% endif %}
+            <ul class="list-unstyled list-stats col-tn-12 col-sm-6 col-md-4">
+                <li>
+                    <span class="fa fa-comment"></span>
+                    {{ emails.paginator.count }} {% trans "messages" %}
+                </li>
+            </ul>
+
+            <form method="get" action="{% url 'hk_search' %}" class="form-inline pull-right right col-tn-12 col-sm-6 col-md-4">
+                <input type="hidden" name="q" value="{{ query|escape }}" />
+                <input type="hidden" name="page" value="{{ emails.number }}" />
+                {% if mlist %}<input type="hidden" name="mlist" value="{{ mlist.name }}" />{% endif %}
+                <!--<p>-->
+                <!--<span class="col-tn-3">Sort by:</span>-->
+                <select name="sort" id="sort-search" class="form-control">
+                    <option value="score"
+                        {% if sort_mode == "score" %}selected{% endif %}
+                        >{% trans "sort by score" %}</option>
+                    <option value="date-desc"
+                        {% if sort_mode == "date-desc" %}selected{% endif %}
+                        >{% trans "sort by latest first" %}</option>
+                    <option value="date-asc"
+                        {% if sort_mode == "date-asc" %}selected{% endif %}
+                        >{% trans "sort by earliest first" %}</option>
+                </select>
+                <!--<button type="submit" class="btn btn-default btn-sm col-tn-3">{% trans "Update" %}</button>-->
+            </form>
+
+
+        </div>
+
+
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+        {% for error in form.q.errors %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endfor %}
+
+        {% if query %}
+            {% for email in emails %}
+                <!--<div class="search-result">-->
+                {% include "hyperkitty/messages/summary_message.html" with email=email.object %}
+                <!--</div>-->
+            {% empty %}
+                <p>{% trans "Sorry no email could be found for this query." %}</p>
+            {% endfor %}
+        {% else %}
+            <p>{% trans "Sorry but your query looks empty." %}</p>
+            <p style="font-style:italic;font-size:small;color:#ccc">{% trans "these are not the messages you are looking for" %}</p>
+        {% endif %}
+
+        {% paginator emails %}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block additionaljs %}
+<script>
+$(document).ready(function() {
+    // onchange event for sorting method select
+    $('select#sort-search').change(function() {
+        $(this).closest('form').submit();
+        return false;
+    });
+});
+</script>
+{% endblock %}

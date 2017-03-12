@@ -1,0 +1,6 @@
+Django>1.8,<1.10
+git+https://gitlab.com/mailman/mailmanclient.git
+git+https://gitlab.com/mailman/postorius.git
+git+https://gitlab.com/mailman/django-mailman3.git
+django-allauth
+django-gravatar

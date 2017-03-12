@@ -1,0 +1,56 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+{% load pagination %}
+
+{% block head_title %}
+{% trans 'List Index' %} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>{% trans 'Mailing Lists' %}</h1>
+    </div>
+
+    {% if user.is_superuser %}
+        <p class="text-right">
+            {% if domain_count < 1 %}
+                <a class="btn btn-success" href="{% url 'domain_new' %}">{% trans 'Create New Domain' %}</a>
+            {% else %}
+                <a class="btn btn-success" href="{% url 'list_new' %}">{% trans 'Create New List' %}</a>
+            {% endif %}
+        </p>
+    {% endif %}
+    {% if lists|length > 0 %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>{% trans 'List name' %}</th>
+                        <th>{% trans 'Post address' %}</th>
+                        <th>{% trans 'Description' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for list in lists %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'list_summary' list_id=list.list_id %}">{{ list.display_name }}</a>
+                                {% if user.is_superuser and not list.settings.advertised %} ({% trans 'unadvertised' %}*){% endif %}
+                            </td>
+                            <td>{{ list.fqdn_listname }}</td>
+                            <td>{{ list.settings.description }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if user.is_superuser %}
+            <small>* {% trans 'Only admins see unadvertised lists in the list index.' %}</small>
+        {% endif %}
+        {% paginator lists %}
+    {% else %}
+        <p>{% trans 'There are currently no mailing lists.' %}</p>
+    {% endif %}
+
+{% endblock content %}

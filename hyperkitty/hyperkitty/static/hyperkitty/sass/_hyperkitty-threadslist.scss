@@ -1,0 +1,197 @@
+/*
+ * Threads view header
+ */
+
+#thread-list .thread-list-header {
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    h1 {
+        margin-bottom: 0;
+    }
+    .list-name {
+        color: black;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    .list-address {
+        font-size: 120%;
+        padding-bottom: 0.5em;
+    }
+    .list-stats {
+        font-size: 90%;
+    }
+}
+
+
+
+/*
+ * Thread summary
+ */
+ 
+
+#thread-list .thread {
+
+    @extend .bordered-vertical;
+
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    .thread-title {
+        font-weight: bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        .category {
+            text-align: center;
+            margin-right: 1%;
+        }
+    }
+
+    .thread-info {
+        padding-top: 0.25em;
+
+        .likeform {
+            display: inline;
+        }
+        .sender {
+            word-wrap: break-word;
+            float: left;
+        }
+
+        .thread-extras {
+            font-size: 90%;
+        }
+
+        .thread-category {
+            font-size: 110%;
+            padding-bottom: 0.25em;
+        }
+        
+        .thread-fav {
+			text-align: right;
+        }
+
+        .likestatus + span {
+            padding-right: 1em;
+        }
+        .likestatus {
+            vertical-align: -2px;
+        }
+
+        .tags {
+            ul {
+                display: inline;
+                margin: 0 0 0 0.2em;
+            }
+            li {
+                padding: 0;
+                margin: 0;
+            }
+        }
+    }
+
+}
+
+// for viewports larger than XS, add more spacing
+@media (min-width: $screen-xs-min) {
+    #thread-list  {
+        .thread-list-info {
+            padding-top: 10px;
+        }
+    }
+}
+
+
+
+/*
+ * Relative placement of the sender gravatar+address and the email excerpt
+ */
+
+// Small viewports
+#thread-list .thread .thread-info {
+    .sender {
+        width: 80px;
+    }
+}
+
+// Large viewports (x > 1200)
+/*
+@media (min-width: $screen-lg-min) {
+    #thread-list .thread .thread-info {
+        .sender {
+            width: 100px;
+        }
+    }
+}
+*/
+
+
+
+/*
+ * Part containing the body of the mail which can be shown/hidden 
+ */
+
+.expander {
+
+    display: block;
+    vertical-align: top;
+    
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.btn-expander {
+  background: #efefef;
+  padding: 1px 5px;
+  vertical-align: middle !important;
+  font-size: .8em;
+  display: inline-block;
+  margin-top: 1em;
+}
+
+.btn-expander:hover {
+  cursor: pointer;
+}
+
+.thread-email {
+
+	.list-stats {
+		margin-top: 1.5em;
+	}
+
+	.expander.collapsed {
+		white-space: normal;
+	}
+}
+
+//=== search result thread list ==/
+.search-results {
+    .list-name {
+        color: black;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    .thread+.thread {
+        padding-top: 1.5em;
+    }
+    .list-stats {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+}
+
+
+// for small screen sizes
+@media (max-width: 991px) {
+
+// for monthly thread list, to align 
+// collapsed right column underneath
+// left in smaller screen width
+.thread-email {
+    .thread-date {
+        margin-top: 1.5em;
+    }
+  }
+}

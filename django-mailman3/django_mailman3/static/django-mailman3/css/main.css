@@ -1,0 +1,51 @@
+/* Login */
+
+.socialaccount_ballot .login-or {
+    clear: both;
+    margin: 1em 0;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+
+/* User profile */
+
+.user-profile h1 {
+    margin-bottom: 1em;
+}
+.user-profile h3 {
+    margin-top: 2em;
+}
+
+.user-profile div.gravatar {
+    display: inline-block;
+    text-align: center;
+    font-size: 95%;
+}
+.user-profile img.gravatar {
+    height: auto !important;
+    width: auto !important;
+}
+.user-profile .form-control-static img.gravatar {
+    vertical-align: middle;
+}
+
+.user-profile .user-profile-content {
+    padding-top: 2em;
+}
+
+
+/* Paginator */
+
+.paginator {
+    text-align: center;
+}
+.paginator form {
+    margin: 0 auto;
+}
+.paginator form label {
+    font-weight: normal;
+}
+.paginator form.jump-to-page {
+    display: none;
+}

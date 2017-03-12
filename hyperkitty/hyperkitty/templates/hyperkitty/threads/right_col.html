@@ -1,0 +1,118 @@
+{% load i18n %}
+{% load gravatar %}
+{% load hk_generic %}
+{% load cache %}
+
+<!-- right column -->
+<section id="thread-overview-info">
+    <!-- Start stats re: dates -->
+    <div id="thread-date-info" class="row">
+        <div class="col-tn-6">
+            <span class="days-num">{{ days_inactive }}</span>
+            <div class="days-text">
+                {% trans "days inactive" %}
+            </div>
+        </div>
+        <div class="col-tn-6">
+            <span class="days-num">{{ days_old }}</span>
+            <div class="days-text">
+                {% trans "days old" %}
+            </div>
+        </div>
+    </div> <!-- /Stats re: dates -->
+
+    <p class="list-name">
+        <a href="{% url 'hk_list_overview' mlist_fqdn=mlist.name %}">
+            {{ mlist.name }}
+        </a>
+    </p>
+
+    {% if 'postorius' in INSTALLED_APPS %}
+    <p class="postorius">
+      <a class="btn btn-default btn-sm" href="{% url 'list_summary' mlist.list_id %}">
+        <i class="fa fa-fw fa-inbox"></i>
+        Manage subscription</a>
+    </p>
+    {% endif %}
+
+    <p class="thread-overview-details">
+    <div>
+        <i class="fa fa-fw fa-comment"></i>
+        {{ num_comments }} {% trans "comments" %}
+    </div>
+    <div>
+        <i class="fa fa-fw fa-user"></i>
+        {{ thread.participants_count }} {% trans "participants" %}
+    </div>
+    {% if user.is_authenticated %}
+    <div>
+        <i class="fa fa-fw fa-envelope"></i> {{ unread_count }} {% trans "unread" %}
+        <span class="hidden-sm"> {% trans "messages" %}</span>
+    </div>
+    {% endif %}
+    </p>
+
+    <form id="fav_form" name="favorite" method="post" class="favorite"
+          action="{% url 'hk_favorite' mlist_fqdn=mlist.name threadid=thread.thread_id %}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="{{ fav_action }}" />
+        <p>
+            <a href="#AddFav" class="notsaved{% if not user.is_authenticated %} disabled" title="{% trans 'You must be logged-in to have favorites.' %}{% endif %}">
+                <i class="fa fa-fw fa-star"></i>{% trans "Add to favorites" %}</a>
+            <a href="#RmFav" class="saved">
+                <i class="fa fa-fw fa-star"></i>{% trans "Remove from favorites" %}</a>
+        </p>
+    </form>
+
+    {% if user.is_staff or user.is_superuser %}
+    <div class="panel panel-danger">
+        <div class="panel-body">
+            <div><i class="fa fa-fw fa-plug"></i>
+               <a href="{% url 'hk_thread_reattach' mlist_fqdn=mlist.name threadid=thread.thread_id %}"
+                  >{% trans "Reattach this thread" %}</a>
+            </div>
+            <div><i class="fa fa-fw fa-trash"></i>
+               <a href="{% url 'hk_thread_delete' mlist_fqdn=mlist.name threadid=thread.thread_id %}"
+                  >{% trans "Delete this thread" %}</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div id="tags">
+        {% include 'hyperkitty/threads/tags.html' %}
+    </div>
+    <div id="add-tag">
+        <form id="add-tag-form" name="addtag" method="post"
+              action="{% url 'hk_tags' mlist_fqdn=mlist.name threadid=thread.thread_id %}"
+              data-autocompleteurl="{% url 'hk_suggest_tags' mlist_fqdn=mlist.name threadid=thread.thread_id %}"
+              >
+            {% csrf_token %}
+            {{ addtag_form.as_p }}
+        </form>
+    </div>
+    {% cache 86400 thread_participants thread.id %}
+    <div id="participants">
+        <span id="participants_title">{% trans "participants" %}</span> ({{ thread.participants_count }})
+        <ul class="list-unstyled">
+            {% for participant in thread.participants|sort_by_name %}
+            <li class="row">
+                <div class="participant-gravatar col-tn-2 col-sm-4 col-md-2">{% gravatar participant.address 48 %}</div>
+                <div class="participant-name col-tn-8">{{ participant.name|default:participant.address|escapeemail }}</div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endcache %}
+</section>
+
+{% if user.is_authenticated %}
+<div id="unreadnavbar">
+    <div>
+    {% trans "Unreads:" %} <span class="unreadindex">0</span>/{{unread_count}}
+    &nbsp;
+    {% trans "Go to:" %} <a href="#" class="nextunread" title="hotkey: j">{% trans "next" %} &darr;</a>
+         - <a href="#" class="prevunread" title="hotkey: k">{% trans "prev" %} &uarr;</a>
+    </div>
+</div>
+{% endif %}

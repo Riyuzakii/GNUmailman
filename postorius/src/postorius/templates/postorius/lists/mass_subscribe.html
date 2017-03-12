@@ -1,0 +1,18 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+{% load nav_helpers %}
+
+{% block head_title %}
+{% trans 'Mass subscribe' %} | {{ list.fqdn_listname }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    {% list_nav 'list_mass_ops' 'Mass subscription' %}
+
+    <form action="{% url 'mass_subscribe' list.list_id %}" method="post" class="form-horizontal">
+        {% bootstrap_form_horizontal form 2 8 'Subscribe users' %}
+    </form>
+
+{% endblock content %}

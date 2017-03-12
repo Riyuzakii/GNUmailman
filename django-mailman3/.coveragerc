@@ -1,0 +1,8 @@
+[run]
+source = django_mailman3
+omit =
+    django_mailman3/tests/*
+    django_mailman3/migrations/*.py
+
+[html]
+directory = coverage

@@ -1,0 +1,74 @@
+{% extends "hyperkitty/user_profile/base.html" %}
+{% load i18n %}
+{% load hk_generic %}
+{% load pagination %}
+
+
+{% block user_profile_content %}
+
+    {% if favorites %}
+        <table class="table table-bordered table-condensed hidden-sm hidden-md hidden-lg">
+            <tbody>
+            {% for fav in favorites %}
+                {% ifchanged fav.thread.mailinglist.name %}
+                <tr class="list-address">
+                    <td>{{ fav.thread.mailinglist.name }}</td>
+                </tr>
+                {% endifchanged %}
+                <tr>
+                    <td>
+                        {% with starting_email=fav.thread.starting_email %}
+                        <a href="{% url 'hk_thread' mlist_fqdn=fav.thread.mailinglist.name threadid=fav.thread.thread_id %}"
+                            >{{ starting_email.subject }}</a>
+                        <br>
+                        {% trans "Original author:" %} {{ starting_email.sender_name|default:starting_email.sender.address }}
+                        <br>
+                        {% trans "Started on:" %} {{ starting_email.date|date:"D, j M Y H:i" }}
+                        <br>
+                        {% trans "Last activity:" %} {{ fav.thread.date_active|timesince }}
+                        <br>
+                        {% trans "Replies:" %} {{ fav.thread|num_comments }}
+                        {% endwith %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered table-condensed hidden-tn hidden-xs">
+            <thead>
+                <tr>
+                    <th>{% trans "List" %}</th>
+                    <th>{% trans "Subject" %}</th>
+                    <th>{% trans "Original author" %}</th>
+                    <th>{% trans "Start date" %}</th>
+                    <th>{% trans "Last activity" %}</th>
+                    <th>{% trans "Replies" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for fav in favorites %}
+                <tr>
+                    {% with starting_email=fav.thread.starting_email %}
+                    <td>
+                        <span class="hidden-md hidden-lg">{{ fav.thread.mailinglist.name|until:"@" }}</span>
+                        <span class="hidden-sm">{{ fav.thread.mailinglist.name }}</span>
+                    </td>
+                    <td><a href="{% url 'hk_thread' mlist_fqdn=fav.thread.mailinglist.name threadid=fav.thread.thread_id %}"
+                            >{{ starting_email.subject }}</a></td>
+                    <td>{{ starting_email.sender_name|default:starting_email.sender.address }}</td>
+                    <td>{{ starting_email.date }}</td>
+                    <td>{{ fav.thread.date_active|timesince }}</td>
+                    <td>
+                        {{ fav.thread|num_comments }}
+                    </td>
+                    {% endwith %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% paginator favorites qsprefix="fav" bydate=True %}
+    {% else %}
+        <p>{% trans "No favorites yet." %}</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,11 @@
+[run]
+source = hyperkitty
+omit =
+    hyperkitty/tests/*.py
+    hyperkitty/tests/*/*.py
+    hyperkitty/south_migrations/*.py
+    hyperkitty/migrations/*.py
+    hyperkitty/lib/mockup.py
+
+[html]
+directory = coverage

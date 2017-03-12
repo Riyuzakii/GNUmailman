@@ -1,0 +1,6 @@
+hyperkitty.db
+static
+settings_local.py
+fulltext_index
+logs/*.log
+emails

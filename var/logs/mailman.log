@@ -1,0 +1,246 @@
+Mar 09 03:31:03 2017 (16719) Master started
+Mar 09 03:31:11 2017 (16723) nntp runner started.
+Mar 09 03:31:11 2017 (16726) in runner started.
+Mar 09 03:31:11 2017 (16728) digest runner started.
+Mar 09 03:31:12 2017 (16724) retry runner started.
+Mar 09 03:31:12 2017 (16730) archive runner started.
+Mar 09 03:31:12 2017 (16733) rest runner started.
+Mar 09 03:31:12 2017 (16725) lmtp runner started.
+Mar 09 03:31:12 2017 (16734) out runner started.
+Mar 09 03:31:13 2017 (16732) bounces runner started.
+Mar 09 03:31:13 2017 (16729) pipeline runner started.
+Mar 09 03:31:14 2017 (16731) command runner started.
+Mar 09 03:31:15 2017 (16727) virgin runner started.
+Mar 09 03:36:00 2017 (16733) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1&advertised=true HTTP/1.1" 200 90
+Mar 09 03:36:00 2017 (16733) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1&advertised=true HTTP/1.1" 200 90
+Mar 09 03:36:00 2017 (16733) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 14:46:14 2017 (20884) Master started
+Mar 10 14:46:23 2017 (20893) archive runner started.
+Mar 10 14:46:23 2017 (20888) virgin runner started.
+Mar 10 14:46:23 2017 (20892) command runner started.
+Mar 10 14:46:23 2017 (20894) nntp runner started.
+Mar 10 14:46:23 2017 (20896) out runner started.
+Mar 10 14:46:23 2017 (20890) digest runner started.
+Mar 10 14:46:24 2017 (20891) in runner started.
+Mar 10 14:46:24 2017 (20897) pipeline runner started.
+Mar 10 14:46:25 2017 (20899) lmtp runner started.
+Mar 10 14:46:25 2017 (20895) bounces runner started.
+Mar 10 14:46:25 2017 (20889) retry runner started.
+Mar 10 14:46:30 2017 (20898) rest runner started.
+Mar 10 14:48:14 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 14:48:14 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 14:48:14 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 14:51:44 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 14:51:44 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 14:51:44 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 14:51:46 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 14:51:46 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 14:51:46 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 14:51:48 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 14:51:49 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 14:51:49 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 15:24:33 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 15:24:33 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 15:24:33 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 15:26:28 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 15:26:28 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 15:26:28 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 15:26:36 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 15:26:36 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 15:26:36 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 15:26:38 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 15:26:38 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 15:26:38 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 15:32:37 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 15:32:37 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 15:32:37 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 16:07:37 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 16:07:37 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 16:07:37 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 16:19:23 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 16:19:23 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 16:19:23 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 18:47:33 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 18:47:33 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1&advertised=true HTTP/1.1" 200 90
+Mar 10 18:47:33 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 18:50:35 2017 (20898) 127.0.0.1 - - "GET /3.0/users/raditya@iitk.ac.in HTTP/1.1" 404 13
+Mar 10 18:50:36 2017 (20898) 127.0.0.1 - - "POST /3.0/users HTTP/1.1" 201 0
+Mar 10 18:50:36 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 10 18:50:36 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 438
+Mar 10 18:50:36 2017 (20898) 127.0.0.1 - - "GET /3.0/addresses/raditya@iitk.ac.in HTTP/1.1" 200 333
+Mar 10 18:50:36 2017 (20898) 127.0.0.1 - - "POST /3.0/addresses/raditya@iitk.ac.in/verify HTTP/1.1" 204 0
+Mar 10 18:50:40 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 10 18:50:40 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 483
+Mar 10 18:50:40 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1 HTTP/1.1" 200 90
+Mar 10 18:50:40 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1 HTTP/1.1" 200 90
+Mar 10 18:50:40 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 18:52:12 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 10 22:44:57 2017 (20898) 127.0.0.1 - - "GET /3.0/users/raditya@iitk.ac.in HTTP/1.1" 200 407
+Mar 10 22:44:57 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 483
+Mar 10 22:44:57 2017 (20898) 127.0.0.1 - - "POST /3.0/members/find HTTP/1.1" 200 90
+Mar 10 22:45:09 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 10 22:45:55 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 10 22:46:11 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 10 22:47:12 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 10 22:47:12 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 483
+Mar 10 22:47:12 2017 (20898) 127.0.0.1 - - "POST /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 201 0
+Mar 10 22:47:12 2017 (20898) 127.0.0.1 - - "POST /3.0/addresses/adityarohan14@gmail.com/verify HTTP/1.1" 204 0
+Mar 10 22:47:12 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1 HTTP/1.1" 200 90
+Mar 10 22:47:13 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1 HTTP/1.1" 200 90
+Mar 10 22:47:13 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 22:47:31 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 10 22:47:31 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 878
+Mar 10 22:47:31 2017 (20898) 127.0.0.1 - - "DELETE /3.0/addresses/adityarohan14@gmail.com HTTP/1.1" 204 0
+Mar 10 23:04:11 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 10 23:06:56 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 10 23:06:56 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 483
+Mar 10 23:20:12 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1 HTTP/1.1" 200 90
+Mar 10 23:20:12 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1 HTTP/1.1" 200 90
+Mar 10 23:20:12 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 90
+Mar 10 23:20:38 2017 (20898) 127.0.0.1 - - "POST /3.0/domains HTTP/1.1" 201 0
+Mar 10 23:20:38 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 278
+Mar 10 23:20:38 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 10 23:22:24 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1 HTTP/1.1" 200 90
+Mar 10 23:22:24 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1 HTTP/1.1" 200 90
+Mar 10 23:22:24 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 278
+Mar 10 23:22:24 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 10 23:22:42 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 278
+Mar 10 23:22:42 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 10 23:23:14 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 278
+Mar 10 23:23:14 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 10 23:23:14 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 10 23:23:14 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 10 23:23:14 2017 (20898) 127.0.0.1 - - "POST /3.0/lists HTTP/1.1" 201 0
+Mar 10 23:23:15 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list.domain.org HTTP/1.1" 200 315
+Mar 10 23:23:15 2017 (20898) 127.0.0.1 - - "POST /3.0/members HTTP/1.1" 201 0
+Mar 10 23:23:15 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list@domain.org/config HTTP/1.1" 200 1985
+Mar 10 23:23:15 2017 (20898) 127.0.0.1 - - "PATCH /3.0/lists/new-list@domain.org/config HTTP/1.1" 204 0
+Mar 10 23:23:15 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list.domain.org HTTP/1.1" 200 315
+Mar 10 23:23:15 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list.domain.org/roster/owner HTTP/1.1" 200 603
+Mar 10 23:23:15 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list.domain.org/roster/moderator HTTP/1.1" 200 90
+Mar 10 23:23:15 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list@domain.org/config HTTP/1.1" 200 1998
+Mar 10 23:23:15 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list@domain.org/requests HTTP/1.1" 200 90
+Mar 10 23:23:15 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list.domain.org/member/raditya@iitk.ac.in HTTP/1.1" 404 32
+Mar 10 23:25:54 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 10 23:43:46 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list.domain.org HTTP/1.1" 200 315
+Mar 10 23:43:46 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list@domain.org/config HTTP/1.1" 200 1998
+Mar 10 23:52:42 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 10 23:52:42 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 483
+Mar 11 01:12:06 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 278
+Mar 11 01:12:06 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 11 01:12:16 2017 (20898) 127.0.0.1 - - "POST /3.0/domains HTTP/1.1" 201 0
+Mar 11 01:12:16 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 11 01:12:16 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 11 01:12:16 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 11 01:28:38 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 11 01:28:38 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 11 01:28:38 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 11 01:42:00 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 11 01:42:00 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 483
+Mar 11 01:59:57 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 11 01:59:57 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 483
+Mar 11 02:02:09 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 11 02:02:09 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 483
+Mar 11 02:08:37 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 11 02:08:37 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 483
+Mar 11 02:08:45 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 11 02:08:45 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 483
+Mar 11 02:30:18 2017 (20898) 127.0.0.1 - - "GET /3.0/users/raditya@iitk.ac.in HTTP/1.1" 200 407
+Mar 11 02:30:18 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 483
+Mar 11 02:30:18 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1 HTTP/1.1" 200 90
+Mar 11 02:30:18 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1 HTTP/1.1" 200 420
+Mar 11 02:30:18 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 11 02:30:18 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 11 02:30:18 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 11 02:30:18 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list@domain.org/config HTTP/1.1" 200 1998
+Mar 11 02:55:24 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1 HTTP/1.1" 200 90
+Mar 11 02:55:24 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1 HTTP/1.1" 200 420
+Mar 11 02:55:24 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 11 02:55:24 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 11 02:55:25 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 11 02:55:25 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list@domain.org/config HTTP/1.1" 200 1998
+Mar 11 02:56:23 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 11 02:56:27 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318 HTTP/1.1" 200 407
+Mar 11 02:56:27 2017 (20898) 127.0.0.1 - - "GET /3.0/users/252471153200246610513213130028303947318/addresses HTTP/1.1" 200 483
+Mar 13 00:27:50 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1 HTTP/1.1" 200 90
+Mar 13 00:27:50 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1 HTTP/1.1" 200 90
+Mar 13 00:27:51 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1 HTTP/1.1" 200 420
+Mar 13 00:27:51 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1 HTTP/1.1" 200 420
+Mar 13 00:27:51 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 13 00:27:51 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 13 00:27:52 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:27:52 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:27:52 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 13 00:27:52 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 13 00:27:52 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list@domain.org/config HTTP/1.1" 200 1998
+Mar 13 00:27:52 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list@domain.org/config HTTP/1.1" 200 1998
+Mar 13 00:28:02 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 13 00:28:02 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:28:02 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 13 00:28:24 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 13 00:28:24 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:28:24 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 13 00:29:17 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:29:17 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:29:34 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1 HTTP/1.1" 200 90
+Mar 13 00:29:34 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1 HTTP/1.1" 200 420
+Mar 13 00:29:34 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 13 00:29:34 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:29:34 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 13 00:29:34 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list@domain.org/config HTTP/1.1" 200 1998
+Mar 13 00:31:26 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 13 00:31:26 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:31:26 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 13 00:31:58 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 13 00:31:58 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:31:58 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 13 00:31:58 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:31:58 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:32:00 2017 (20898) 127.0.0.1 - - "POST /3.0/lists HTTP/1.1" 201 0
+Mar 13 00:32:01 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck.domain.org HTTP/1.1" 200 295
+Mar 13 00:32:01 2017 (20898) 127.0.0.1 - - "POST /3.0/members HTTP/1.1" 201 0
+Mar 13 00:32:01 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck@domain.org/config HTTP/1.1" 200 1945
+Mar 13 00:32:01 2017 (20898) 127.0.0.1 - - "PATCH /3.0/lists/fuck@domain.org/config HTTP/1.1" 204 0
+Mar 13 00:32:01 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck.domain.org HTTP/1.1" 200 295
+Mar 13 00:32:02 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck.domain.org/roster/owner HTTP/1.1" 200 599
+Mar 13 00:32:02 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck.domain.org/roster/moderator HTTP/1.1" 200 90
+Mar 13 00:32:02 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck@domain.org/config HTTP/1.1" 200 1959
+Mar 13 00:32:02 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck@domain.org/requests HTTP/1.1" 200 90
+Mar 13 00:32:02 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck.domain.org/member/raditya@iitk.ac.in HTTP/1.1" 404 32
+Mar 13 00:54:54 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1 HTTP/1.1" 200 90
+Mar 13 00:54:54 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1 HTTP/1.1" 200 717
+Mar 13 00:54:54 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 13 00:54:54 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:54:54 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 13 00:54:54 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck@domain.org/config HTTP/1.1" 200 1959
+Mar 13 00:54:54 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list@domain.org/config HTTP/1.1" 200 1998
+Mar 13 00:55:01 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck.domain.org HTTP/1.1" 200 295
+Mar 13 00:55:01 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck.domain.org/roster/owner HTTP/1.1" 200 599
+Mar 13 00:55:01 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck.domain.org/roster/moderator HTTP/1.1" 200 90
+Mar 13 00:55:01 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck@domain.org/config HTTP/1.1" 200 1959
+Mar 13 00:55:01 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck@domain.org/requests HTTP/1.1" 200 90
+Mar 13 00:55:01 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck.domain.org/member/raditya@iitk.ac.in HTTP/1.1" 404 32
+Mar 13 00:55:06 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck.domain.org HTTP/1.1" 200 295
+Mar 13 00:55:08 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/fuck.domain.org HTTP/1.1" 200 295
+Mar 13 00:55:08 2017 (20898) 127.0.0.1 - - "DELETE /3.0/lists/fuck.domain.org HTTP/1.1" 204 0
+Mar 13 00:55:08 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1 HTTP/1.1" 200 90
+Mar 13 00:55:08 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1 HTTP/1.1" 200 420
+Mar 13 00:55:08 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 13 00:55:08 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:55:08 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 13 00:55:08 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list@domain.org/config HTTP/1.1" 200 1998
+Mar 13 00:55:15 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 452
+Mar 13 00:55:15 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 00:55:15 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 13 00:55:18 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/qssqq.org HTTP/1.1" 200 172
+Mar 13 00:55:18 2017 (20898) 127.0.0.1 - - "DELETE /3.0/domains/qssqq.org HTTP/1.1" 204 0
+Mar 13 00:55:18 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 278
+Mar 13 00:55:18 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 01:20:42 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 278
+Mar 13 01:20:42 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 01:20:49 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=0&page=1 HTTP/1.1" 200 90
+Mar 13 01:20:49 2017 (20898) 127.0.0.1 - - "GET /3.0/lists?count=10&page=1 HTTP/1.1" 200 420
+Mar 13 01:20:49 2017 (20898) 127.0.0.1 - - "GET /3.0/domains HTTP/1.1" 200 278
+Mar 13 01:20:49 2017 (20898) 127.0.0.1 - - "GET /3.0/domains/domain.org HTTP/1.1" 200 173
+Mar 13 01:20:49 2017 (20898) 127.0.0.1 - - "GET /3.0/lists/new-list@domain.org/config HTTP/1.1" 200 1998
+Mar 13 01:20:53 2017 (20898) 127.0.0.1 - - "GET /3.0/users/raditya@iitk.ac.in HTTP/1.1" 200 407

@@ -1,0 +1,77 @@
+{% load i18n %}
+{% load pagination %}
+
+<div class="paginator">
+
+<ul class="pagination">
+    {% if page.has_previous %}
+        <li>
+            <a href="?{% add_to_query_string page_key page.previous_page_number %}">
+                &larr; {{ label_previous }}
+            </a>
+        </li>
+    {% else %}
+        <li class="disabled"><span>&larr; {{ label_previous }}</span></li>
+    {% endif %}
+
+    {% for pagenum in page.paginator.page_range_ellipsis %}
+        {% if pagenum == page.number %}
+            <li class="active"><span>{{ pagenum }}</span></li>
+        {% elif pagenum == "..." %}
+            <li><a href="#" class="jump-to-page">...</a></li>
+        {% else %}
+            <li><a href="?{% add_to_query_string page_key pagenum %}">{{ pagenum }}</a></li>
+        {% endif %}
+    {% endfor %}
+
+    {% if page.has_next %}
+        <li>
+            <a href="?{% add_to_query_string page_key page.next_page_number %}">
+                {{ label_next }} &rarr;
+            </a>
+        </li>
+    {% else %}
+        <li class="disabled"><span>{{ label_next }} &rarr;</span></li>
+    {% endif %}
+</ul>
+
+<form class="form-inline jump-to-page" action="" method="get">
+    <label>
+        {% trans 'Jump to page:' %}
+        <select class="form-control input-sm" name="{{ page_key }}">
+        {% for pagenum in page.paginator.page_range %}
+            <option value="{{ pagenum }}"
+                {% if page.number == pagenum %}selected{% endif %}>
+                {{ pagenum }}
+            </option>
+        {% endfor %}
+        </select>
+    </label>
+    {% for key, value in request.GET.items %}
+        {% if key != page_key %}
+            <input type="hidden" name="{{ key }}" value="{{ value }}" />
+        {% endif %}
+    {% endfor %}
+</form>
+
+<form class="form-inline" action="" method="get">
+    {% trans 'Results per page:' %}
+    <select name="{{ count_key }}" class="form-control input-sm">
+        {% for count in per_page_options %}
+            <option value="{{ count }}"
+                {% if page.paginator.per_page == count %}
+                selected="selected"
+                {% endif %}
+                >{{ count }}
+            </option>
+        {% endfor %}
+    </select>
+    {% for key, value in request.GET.items %}
+        {% if key != count_key %}
+            <input type="hidden" name="{{ key }}" value="{{ value }}" />
+        {% endif %}
+    {% endfor %}
+    <input type="submit" class="btn btn-default btn-sm" value="{% trans 'Update' %}" />
+</form>
+
+</div>

@@ -1,0 +1,33 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+{% load nav_helpers %}
+{% load bootstrap_tags %}
+
+{% block head_title %}
+{% trans 'Member options' %} | {{ mm_member.email }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    {% list_nav 'list_members' 'Member options' mm_member.email %}
+
+    {% if not user.is_superuser and not user.is_list_owner %}
+        <h1>{% trans 'No Preferences Available' %}</h1>
+        <p>{% trans 'You are not the owner for this list' %}</p>
+    {% else %}
+        <form action="{% url 'list_member_options' list.list_id mm_member.email %}" method="post" class="form-horizontal">
+            {% bootstrap_form_horizontal preferences_form 3 8 'Save changes' %}
+            <input type="hidden" name="formname" value="preferences" />
+        </form>
+        <div class="panel panel-default">
+            <div class="panel-heading">Administration options</div>
+            <div class="panel-body">
+                <form action="{% url 'list_member_options' list.list_id mm_member.email %}" method="post" class="form-horizontal">
+                    {% bootstrap_form_horizontal moderation_form 3 8 'Save changes' %}
+                    <input type="hidden" name="formname" value="moderation" />
+                </form>
+            </div>
+        </div>
+
+    {% endif %}
+{% endblock content %}

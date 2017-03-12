@@ -1,0 +1,38 @@
+{% extends "hyperkitty/base.html" %}
+{% load i18n %}
+
+{% block head_title %}
+{% trans "User posting activity" %} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="user-profile">
+
+    <h1>{% trans "User posting activity" %} <small>{% trans "for" %} {{ user }}</small></h1>
+
+    <ul class="nav nav-tabs">
+        <li role="presentation" {% if subpage == "profile" %} class="active" {% endif %}>
+            <a href="{% url "hk_user_profile" %}">{% trans "Posting activity" %}</a>
+        </li>
+        <li role="presentation" {% if subpage == "favorites" %} class="active" {% endif %}>
+            <a href="{% url "hk_user_favorites" %}">{% trans "Favorites" %}</a>
+        </li>
+        <li role="presentation" {% if subpage == "last_views" %} class="active" {% endif %}>
+            <a href="{% url "hk_user_last_views" %}">{% trans "Threads you have read" %}</a>
+        </li>
+        <li role="presentation" {% if subpage == "votes" %} class="active" {% endif %}>
+            <a href="{% url "hk_user_votes" %}">{% trans "Votes" %}</a>
+        </li>
+        <li role="presentation" {% if subpage == "subscriptions" %} class="active" {% endif %}>
+            <a href="{% url "hk_user_subscriptions" %}">{% trans "Subscriptions" %}</a>
+        </li>
+    </ul>
+
+    <div class="user-profile-content">
+        {% block user_profile_content %}{% endblock %}
+    </div>
+
+</div>
+
+{% endblock %}

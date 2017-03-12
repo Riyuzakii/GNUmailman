@@ -1,0 +1,24 @@
+Metadata-Version: 1.1
+Name: lazr.delegates
+Version: 2.0.3
+Summary: Easily write objects that delegate behavior
+Home-page: https://launchpad.net/lazr.delegates
+Author: LAZR Developers
+Author-email: lazr-developers@lists.launchpad.net
+License: LGPL v3
+Download-URL: https://launchpad.net/lazr.delegates/+download
+Description: 
+        The ``lazr.delegates`` package makes it easy to write objects that delegate
+        behavior to another object. The new object adds some property or behavior on
+        to the other object, while still providing the underlying interface, and
+        delegating behavior.
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3

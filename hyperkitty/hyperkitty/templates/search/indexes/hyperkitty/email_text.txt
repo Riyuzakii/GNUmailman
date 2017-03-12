@@ -1,0 +1,7 @@
+{% load hk_haystack %}
+{{ object.subject|nolongterms }}
+{{ object.sender_name|nolongterms }}
+{{ object.content|nolongterms }}
+{% for att in object.attachments.all %}
+    {{ att.name|nolongterms }}
+{% endfor %}

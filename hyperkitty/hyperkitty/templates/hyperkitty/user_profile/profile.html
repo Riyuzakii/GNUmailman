@@ -1,0 +1,52 @@
+{% extends "hyperkitty/user_profile/base.html" %}
+{% load i18n %}
+{% load hk_generic %}
+{% load pagination %}
+
+
+{% block user_profile_content %}
+
+    <h4>{% trans "Last posts" %}</h4>
+    {% if last_posts %}
+
+        <table class="table table-striped table-bordered table-condensed hidden-tn hidden-xs">
+            <thead>
+                <tr>
+                    <th>{% trans "List" %}</th>
+                    <th>{% trans "Subject" %}</th>
+                    <th>{% trans "Date" %}</th>
+                    <th>{% trans "Votes" %}</th>
+                    <th>{% trans "Thread" %}</th>
+                    <th>{% trans "Last thread activity" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for message in last_posts %}
+                <tr>
+                    {% with mlist=message.mailinglist thread=message.thread votes=message.get_votes %}
+                    <td>
+                        <span class="hidden-md hidden-lg">{{ mlist.name|until:"@" }}</span>
+                        <span class="hidden-sm">{{ mlist.name }}</span>
+                    </td>
+                    <td><a href="{% url 'hk_message_index' mlist_fqdn=mlist.name message_id_hash=message.message_id_hash %}"
+                            >{{ message.subject }}</a></td>
+                    <td>{{ message.date }}</td>
+                    <td>
+                        <i class="icomoon likestatus {{ votes.status }}"></i>
+                        <span>+{{ votes.likes }}/-{{ votes.dislikes }}</span>
+                    </td>
+                    <td><a href="{% url 'hk_thread' mlist_fqdn=mlist.name threadid=thread.thread_id %}"
+                            >{{ thread.starting_email.subject }}</a></td>
+                    <td>{{ thread.date_active|timesince }}</td>
+                    {% endwith %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% paginator last_posts qsprefix="lp" bydate=True %}
+
+    {% else %}
+        <p><em>{% trans "No posts yet." %}</em></p>
+    {% endif %}
+
+{% endblock %}

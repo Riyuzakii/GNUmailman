@@ -1,0 +1,107 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+{% load nav_helpers %}
+
+{% block head_title %}
+{% trans 'Header filters' %} | {{ list.fqdn_listname}} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    {% list_nav 'list_header_matches' 'Header filters' %}
+
+    {% for error in formset.non_form_errors %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endfor %}
+
+    <form method="post" action="" class="header-matches">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            {% for field in formset.forms.0 %}
+                <th>
+                    {{ field.label }}
+                    <div class="text-muted" style="font-weight:normal"><small>{{ field.help_text }}</small></div>
+                </th>
+            {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for form in formset %}
+                <tr {% if form.errors %}class="danger"{% endif %}>
+                {% for field in form %}
+                    {% if field.name == 'ORDER' %}
+                    <td class="order">
+                        {{ field|add_form_control }}
+                        <a href="" class="up"><span class="glyphicon glyphicon-arrow-up"></span></a>
+                        <a href="" class="down"><span class="glyphicon glyphicon-arrow-down"></span></a>
+                    {% else %}
+                    <td>
+                        {{ field|add_form_control }}
+                    {% endif %}
+                        <div class="text-danger">{{ field.errors }}</div>
+                    </td>
+                {% endfor %}
+                {% if forloop.last %}
+                    {# This is the new header match form, it has no order or delete fields #}
+                    <td></td><td></td>
+                {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <p>
+            <button class="btn btn-primary" type="submit">{% trans 'Save changes' %}</button>
+            <span class="header-matches-pending-changes text-muted">
+                {% trans 'Changes pending, click on the button to save them.' %}
+            </span>
+        </p>
+    </form>
+
+{% endblock %}
+
+{% block additionaljs %}
+<script>
+$(function() {
+    var form_table = $('form.header-matches table');
+    function move_line(line, direction) {
+        if (direction == 'up') {
+            line.insertBefore(line.prev());
+        } else if (direction == 'down') {
+            line.insertAfter(line.next());
+        }
+        // now reset the ORDER fields
+        form_table.find('td.order input').val(function(i, oldval) {
+            return i+1;
+        });
+        show_hide_buttons();
+        $('.pending-changes').fadeIn();
+    }
+    function show_hide_buttons() {
+        var total_lines = form_table.find('td.order').length;
+        form_table.find('td.order').each(function(index) {
+            $(this).find('input').hide();
+            if (index == 0) {
+                $(this).find('a.up').hide();
+            } else {
+                $(this).find('a.up').show();
+            }
+            if (index == (total_lines - 1)) {
+                $(this).find('a.down').hide();
+            } else {
+                $(this).find('a.down').show();
+            }
+        });
+    }
+    show_hide_buttons();
+    form_table.find('td.order a').click(function(e) {
+        e.preventDefault();
+        move_line($(this).closest('tr'), $(this).attr("class"));
+    });
+});
+</script>
+{% endblock %}

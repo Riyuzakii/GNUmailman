@@ -1,0 +1,7 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h1>{% trans 'Something went wrong' %}</h1>
+    {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% endblock %}

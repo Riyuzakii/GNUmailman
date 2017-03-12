@@ -1,0 +1,64 @@
+{% extends "hyperkitty/base.html" %}
+{% load i18n %}
+{% load hk_generic %}
+{% load gravatar %}
+
+
+{% block head_title %}
+{% trans 'User Profile' %} {% trans "for" %} {{ fullname }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="user-profile user-public-profile">
+
+    <h1>{% trans "User profile" %} <small>{% trans "for" %} {{ fullname }}</small></h1>
+
+    {% if is_user %}
+    <p>This is you. <a href="{% url 'hk_user_profile' %}">Edit your private profile</a>.</p>
+    {% endif %}
+
+    <table class="table table-bordered table-striped user-data">
+        <tbody>
+            <tr>
+                <th>{% trans 'Name:' %}</th>
+                <td>{{ fullname }}</td>
+            </tr>
+            {% if creation %}
+            <tr>
+                <th>{% trans 'Creation:' %}</th>
+                <td>{{ creation|date:"l, j F Y H:i:s" }} ({{ creation|timesince }})</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>{% trans 'Votes for this user:' %}</th>
+                <td>
+                    <i class="icomoon likestatus {{ likestatus }}"></i>
+                    <span class="likestatus">+{{ likes }}/-{{ dislikes }}</span>
+                </td>
+            </tr>
+            {% if user.is_superuser %}
+            <tr>
+                <th>{% trans 'Email addresses:' %}</th>
+                <td>
+                    <ul>
+                    {% for addr in addresses %}
+                        <li>{{ addr }}</li>
+                    {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    {% if addresses %}
+    <div class="gravatar">
+        {% gravatar addresses.0 100 %}
+    </div>
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

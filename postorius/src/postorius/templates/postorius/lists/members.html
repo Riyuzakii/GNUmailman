@@ -1,0 +1,107 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+{% load nav_helpers %}
+{% load pagination %}
+
+{% block head_title %}
+{% trans 'List members' %} | {{ list.fqdn_listname}} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    {% list_nav 'list_members' page_title %}
+
+    {% if role != 'subscriber' %}
+        <form action="{% url 'list_members' list.list_id role %}" method="post" class="form-inline margin-bottom">
+            {% csrf_token %}
+            <div class="form-group {% if member_form.email.errors %}has-error{% endif %}">
+                {% if member_form.email.errors %}
+                    <div class="alert alert-danger">{{ member_form.email.errors }}</div>
+                {% endif %}
+                {{ member_form.email.label_tag }}
+                {{ member_form.email|add_form_control }}
+            </div>
+            <button type="submit" class="btn btn-default">{{ form_action }}</button>
+        </form>
+    {% endif %}
+
+    {% if role == 'subscriber' %}
+        {% if form.choices.errors %}
+            <div class="alert alert-danger">{{ form.choices.errors }}</div>
+        {% endif %}
+        <div class="pull-left margin-bottom">
+            <form action="{% url 'list_members' list.list_id role %}" method="get" class="form-inline">
+                <div class="input-group">
+                    <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="{% trans 'Search members...' %}" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+
+    {% if members|length > 0 %}
+        {% if role == 'subscriber' %}
+            <form action="{% url 'list_members' list.list_id role %}" method="post" id="unsubscribe-form">
+            {% csrf_token %}
+            <input type="submit" class="hidden" />
+            <div class="pull-right">
+                <a href="{% url 'csv_view' list.list_id %}" class="btn btn-default">
+                   {% trans 'CSV Export' %}
+                </a>
+                <button class="btn btn-warning" id="unsubscribe-selected-btn">Unsubscribe Selected</button>
+                <a href="{% url 'unsubscribe_all' list.list_id %}" class="btn btn-danger">{% trans 'Unsubscribe All' %}</a>
+            </div>
+        {% endif %}
+            <div class="table-responsive" style="clear:both">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                              {% if role == 'subscriber' %}
+                                    <input type="checkbox" id="all-members-checkbox"/>
+                              {% endif %}
+                              {% trans 'Address' %}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in members %}
+                            <tr>
+                                {% if role == 'subscriber' %}
+                                  <td>
+                                    <label class="checkbox-inline">
+                                    <input type="checkbox" class="member-checkbox" name="choices" id="id_choices_{{ forloop.counter0 }}" value="{{ member.email }}" />
+                                    {{ member.email }}
+                                    </label>
+                                  </td>
+                                  <td>
+                                    <a href="{% url 'list_member_options' list.list_id member.email %}">{% trans 'Member Options' %}</a>
+                                  </td>
+                                {% else %}
+                                    <td>{{ member }}</td>
+                                    <td><a href="{% url 'remove_role' list.list_id role member %}" class="btn btn-xs btn-danger">{% trans 'Delete' %}</a></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% if role == 'subscriber' %}
+            </form>
+            {% paginator members %}
+        {% endif %}
+    {% else %}
+        <p>{{ empty_error }}</p>
+    {% endif %}
+
+{% endblock content %}
+{% block additionaljs %}
+<script>
+$('#all-members-checkbox').change(function() {
+  $('.member-checkbox').prop('checked', this.checked);
+});
+</script>
+{% endblock %}

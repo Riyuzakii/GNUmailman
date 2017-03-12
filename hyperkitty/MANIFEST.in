@@ -1,0 +1,18 @@
+include AUTHORS.txt COPYING.txt requirements.txt hyperkitty.spec
+include tox.ini *rc
+# http://bruno.im/2010/may/05/packaging-django-reusable-app/
+recursive-include hyperkitty *.py *.html *.js *.txt
+graft hyperkitty/static
+graft hyperkitty/fixtures
+graft hyperkitty/tests/testdata
+prune hyperkitty/static/hyperkitty/.sass-cache
+include doc/conf.py doc/Makefile doc/*.rst
+# example project
+recursive-include example_project *.py *.conf *.rst crontab
+exclude example_project/settings_local.py
+exclude example_project/hyperkitty.db
+include example_project/logs/.keep
+exclude example_project/logs/*.log
+prune example_project/static
+prune example_project/fulltext_index
+prune example_project/emails

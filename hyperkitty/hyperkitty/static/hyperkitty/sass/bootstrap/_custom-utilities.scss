@@ -1,0 +1,58 @@
+// Visibility utilities
+@include responsive-invisibility('.visible-tn');
+@include responsive-invisibility('.visible-xl');
+
+.visible-tn-block,
+.visible-tn-inline,
+.visible-tn-inline-block,
+.visible-xl-block,
+.visible-xl-inline,
+.visible-xl-inline-block {
+  display: none !important;
+}
+
+@media (max-width: $screen-tn-max) {
+  @include responsive-visibility('.visible-tn');
+}
+.visible-tn-block {
+  @media (max-width: $screen-tn-max) {
+    display: block !important;
+  }
+}
+.visible-tn-inline {
+  @media (max-width: $screen-tn-max) {
+    display: inline !important;
+  }
+}
+.visible-tn-inline-block {
+  @media (max-width: $screen-tn-max) {
+    display: inline-block !important;
+  }
+}
+
+@media (min-width: $screen-xl-min) {
+  @include responsive-visibility('.visible-xl');
+}
+.visible-xl-block {
+  @media (min-width: $screen-xl-min) {
+    display: block !important;
+  }
+}
+.visible-xl-inline {
+  @media (min-width: $screen-xl-min) {
+    display: inline !important;
+  }
+}
+.visible-xl-inline-block {
+  @media (min-width: $screen-xl-min) {
+    display: inline-block !important;
+  }
+}
+
+@media (max-width: $screen-tn-max) {
+  @include responsive-invisibility('.hidden-tn');
+}
+
+@media (min-width: $screen-xl-min) {
+  @include responsive-invisibility('.hidden-xl');
+}

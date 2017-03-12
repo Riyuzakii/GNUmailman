@@ -1,0 +1,24 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+
+{% block head_title %}
+{% trans 'Confirm domain removal' %} | {{ domain}} - {{ block.super }}
+{% endblock %}
+
+{% load nav_helpers %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h2>{% trans 'Confirm deletion' %}</h2>
+    </div>
+
+    <p>{% trans 'Are you sure you want to permanently delete this domain?' %}</p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit">{% trans 'Delete' %} {{ domain }}</button>
+        <a class="btn btn-default" href="{% url 'domain_index' %}">{% trans 'Cancel' %}</a>
+    </form>
+
+{% endblock content %}

@@ -1,0 +1,5 @@
+Aamir Khan <syst3m.w0rm@gmail.com>
+Pierre-Yves Chibon <pingou@pingoured.fr>
+Aurelien Bompard <aurelien@bompard.org>
+Aslak Knutsen <aslak@redhat.com>
+Karen Tang <kpytang@gmail.com>

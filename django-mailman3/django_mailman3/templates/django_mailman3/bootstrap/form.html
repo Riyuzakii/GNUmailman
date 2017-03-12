@@ -1,0 +1,60 @@
+{% load i18n %}
+{% load bootstrap_tags %}
+
+{% if form.non_field_errors %}
+    <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+{% endif %}
+
+{% csrf_token %}
+{% for hidden in form.hidden_fields %}
+    {{ hidden }}
+{% endfor %}
+
+{% for field in form.visible_fields %}
+    <div class="form-group {% if field.errors %}has-errors{% endif %}">
+
+        {% if field|fieldtype_is:'RadioSelect' %}
+            {% for choice in field %}
+                <label class="radio-inline">
+                    {{ choice.tag }}
+                    {{ choice.choice_label }}
+                </label>
+            {% endfor %}
+        {% elif field|fieldtype_is:'CheckboxInput' %}
+            <div class="checkbox">
+                <label>
+                    {{ field }} {{ field.label }}
+                </label>
+            </div>
+        {% elif field|fieldtype_is:'CheckboxSelectMultiple' %}
+            {% for choice in field %}
+                <div class="checkbox">
+                    <label>
+                        {{ choice }} {{ choice.label }}
+                    </label>
+                </div>
+            {% endfor %}
+        {% else %}
+            <label class="control-label" for="{{ field.id_for_label }}">
+                {{ field.label }}
+            </label>
+            {{ field|add_form_control }}
+        {% endif %}
+
+        {% for error in field.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+
+        {% if field.help_text %}
+        <p id="help-{{ field.id_for_label }}" class="help-block">
+            {{ field.help_text|linebreaksbr }}
+        </p>
+        {% endif %}
+    </div>
+{% endfor %}
+
+{% if button %}
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">{% trans button %}</button>
+    </div>
+{% endif %}

@@ -1,0 +1,22 @@
+{% extends "openid/base.html" %}
+
+{% load i18n %}
+{% load bootstrap_tags %}
+
+{% block head_title %}OpenID Sign In{% endblock %}
+
+{% block content %}
+
+<h1>{% trans 'OpenID Sign In' %}</h1>
+
+
+<form id="openid_login_form" class="openid_login" method="post" action="{% url 'openid_login' %}">
+    {% bootstrap_form_horizontal form 2 4 %}
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button class="btn btn-primary" type="submit">Sign In</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

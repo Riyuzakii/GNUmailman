@@ -1,0 +1,26 @@
+{% extends "hyperkitty/base.html" %}
+{% load i18n %}
+{% load gravatar %}
+{% load hk_generic %}
+
+
+{% block head_title %}
+{% trans "Error: private list" %} - {{ mlist.display_name|default:mlist.name }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-sm-2">
+    </div>
+
+    <div class="col-sm-10">
+        <p class="text-danger">
+            {% trans "This mailing list is private. You must be subscribed to view the archives." %}
+        </p>
+    </div>
+
+</div>
+
+{% endblock %}

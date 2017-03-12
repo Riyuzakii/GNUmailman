@@ -1,0 +1,36 @@
+{% load i18n %}
+{% load gravatar %}
+{% load hk_generic %}
+
+<div class="temporary"
+    {% if email.level %}style="margin-left:{{ email.level|multiply:"2" }}em;"{% endif %}>
+    <!-- Start email -->
+    <div class="email">
+
+        <div class="email-header">
+            <div class="email-date inline-block pull-right">
+                <span class="date">{% trans "Sent just now, not yet distributed" %}</span>
+            </div>
+            <div class="gravatar{% if use_mockups %} pull-left{% endif %}">
+                {% gravatar email.sender_address 120 %}
+            </div>
+            <div class="email-author inline-block">
+                <span class="name">{{email.sender_name|default:email.sender_address|escapeemail}}</span>
+                {% if use_mockups %}
+                <br />
+                <span class="rank">
+                    {% trans "Rank 8" %}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="email-body {% if email.display_fixed %}fixed{% endif %}"
+         >{{ email.content|snip_quoted|wordwrap:90|urlizetrunc:76|escapeemaillinks }}</div>
+
+        <div class="email-info">
+        </div>
+
+    </div>
+    <!-- End of email -->
+</div>

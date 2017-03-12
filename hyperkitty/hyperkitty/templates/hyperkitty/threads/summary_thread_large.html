@@ -1,0 +1,66 @@
+{% load i18n %}
+{% load gravatar %}
+{% load hk_generic %}
+
+        {% with starting_email=thread.starting_email %}
+        <div class="thread{% if thread|is_unread_by:request.user %} unread{% endif %}">
+
+        <div class="thread-info">
+                <div class="thread-email row">
+                        <div class="hidden-tn hidden-xxs hidden-xs col-sm-1 sender gravatar">
+                                {% if starting_email.sender.address %}
+                                {% gravatar starting_email.sender.address 120 %}
+                                        <br />
+                                {% else %}
+                                        <div class="gravatar-placeholder">&nbsp;</div>
+                                {% endif %}
+                        </div>
+                        <div class="col-tn-12 col-sm-10 col-md-7 col-lg-8">
+                                <span class="thread-title">
+                                <a name="{{thread.thread_id}}"
+                                        href="{% url 'hk_thread' threadid=thread.thread_id mlist_fqdn=mlist.name %}"
+                                        >
+                                        {% if thread.favorite %}
+                                                <i class="fa fa-star saved" title="{% trans 'Favorite' %}"></i>
+                                        {% else %}
+                                                <i class="fa fa-star-o notsaved" title="{% trans 'Favorite' %}"></i>
+                                        {% endif %}
+                                        {% if thread|is_unread_by:request.user %}
+                                                <i class="fa fa-envelope" title="{% trans 'New messages in this thread' %}"></i>
+                                        {% endif %}
+                                        {{ starting_email.subject|strip_subject:mlist }}
+                                </a>
+                                </span>
+                                <div>
+                                    {% blocktrans with name=thread.starting_email.sender_name|default:thread.starting_email.sender.address|escapeemail %}
+                                        by {{ name }}
+                                    {% endblocktrans %}
+                                </div>
+                                <span class="expander collapsed hidden-tn hidden-xxs hidden-xs" style="color: #999">
+                                        {{ starting_email.content|urlizetrunc:76|escapeemaillinks }}
+                                </span>
+                        </div>
+                        <div class="col-tn-4 col-sm-4 col-sm-offset-2 col-md-offset-0 col-md-3 col-lg-3 thread-date"
+                                title="{{ thread.date_active|date:'l, j F Y H:i:s' }}">
+                                <i class="fa fa-clock-o" title="{% trans 'Most recent thread activity' %}"></i>
+                                {{ thread.date_active|timesince }}
+                        </div>
+                        <div class="col-tn-7 col-sm-4 col-md-3 col-lg-3">
+                                <ul class="list-unstyled list-stats">
+                                        <li>
+                                                <i class="fa fa-user"></i>
+                                                {{ thread.participants_count }} <!-- {% trans "participants" %} -->
+                                        </li>
+                                        <li>
+                                                <i class="fa fa-comment"></i>
+                                                {{ thread|num_comments }} <!-- {% trans "comments" %} -->
+                                        </li>
+                                        <li>
+                                                {% include "hyperkitty/fragments/like_form.html" with message_id_hash=starting_email.message_id_hash object=thread %}
+                                        </li>
+                                </ul>
+                        </div>
+                </div>
+        </div>
+</div>
+{% endwith %}

@@ -1,0 +1,147 @@
+Metadata-Version: 1.1
+Name: flufl.lock
+Version: 2.4.1
+Summary: NFS-safe file locking with timeouts for POSIX systems.
+Home-page: http://launchpad.net/flufl.lock
+Author: Barry Warsaw
+Author-email: barry@python.org
+License: LGPLv3
+Download-URL: https://pypi.python.org/pypi/flufl.lock
+Description:    ==========
+           flufl.lock
+           ==========
+           
+           NFS-safe file locking with timeouts for POSIX systems.
+           
+           The `flufl.lock` library provides an NFS-safe file-based locking algorithm
+           influenced by the GNU/Linux `open(2)` manpage, under the description of the
+           `O_EXCL` option.
+           
+               [...] O_EXCL is broken on NFS file systems, programs which rely on it
+               for performing locking tasks will contain a race condition.  The
+               solution for performing atomic file locking using a lockfile is to
+               create a unique file on the same fs (e.g., incorporating hostname and
+               pid), use link(2) to make a link to the lockfile.  If link() returns
+               0, the lock is successful.  Otherwise, use stat(2) on the unique file
+               to check if its link count has increased to 2, in which case the lock
+               is also successful.
+           
+           The assumption made here is that there will be no *outside interference*,
+           e.g. no agent external to this code will ever `link()` to the specific lock
+           files used.
+           
+           Lock objects support lock-breaking so that you can't wedge a process forever.
+           This is especially helpful in a web environment, but may not be appropriate
+           for all applications.
+           
+           Locks have a *lifetime*, which is the maximum length of time the process
+           expects to retain the lock.  It is important to pick a good number here
+           because other processes will not break an existing lock until the expected
+           lifetime has expired.  Too long and other processes will hang; too short and
+           you'll end up trampling on existing process locks -- and possibly corrupting
+           data.  In a distributed (NFS) environment, you also need to make sure that
+           your clocks are properly synchronized.
+           
+           
+           Author
+           ======
+           
+           `flufl.lock` is Copyright (C) 2007-2015 Barry Warsaw <barry@python.org>
+           
+           Licensed under the terms of the GNU Lesser General Public License, version 3
+           or later.  See the COPYING.LESSER file for details.
+           
+           
+           Project details
+           ===============
+           
+            * Project home: https://gitlab.com/warsaw/flufl.lock
+            * Report bugs at: https://gitlab.com/warsaw/flufl.lock/issues
+            * Code hosting: git@gitlab.com:warsaw/flufl.lock.git
+            * Documentation: http://flufllock.readthedocs.org/
+        
+           ===================
+           NEWS for flufl.lock
+           ===================
+           
+           2.4.1 (2015-10-29)
+           ==================
+            * Fix the MANIFEST.in so that tox.ini is included in the sdist.
+           
+           2.4 (2015-10-10)
+           ================
+            * Drop Python 2.6 compatibility.
+            * Add Python 3.5 compatibility.
+           
+           2.3.1 (2014-09-26)
+           ==================
+            * Include MANIFEST.in in the sdist tarball, otherwise the Debian package
+              won't built correctly.
+           
+           2.3 (2014-09-25)
+           ================
+            * Fix documentation bug.  (LP: #1026403)
+            * Catch ESTALE along with ENOENT, as NFS servers are supposed to (but don't
+              always) throw ESTALE instead of ENOENT.  (LP: #977999)
+            * Purge all references to `distribute`.  (LP: #1263794)
+           
+           2.2.1 (2012-04-19)
+           ==================
+            * Add classifiers to setup.py and make the long description more compatible
+              with the Cheeseshop.
+            * Other changes to make the Cheeseshop page look nicer.  (LP: #680136)
+            * setup_helper.py version 2.1.
+           
+           2.2 (2012-01-19)
+           ================
+            * Support Python 3 without the use of 2to3.
+            * Make the documentation clear that the `flufl.test.subproc` functions are
+              not part of the public API.  (LP: #838338)
+            * Fix claim file format in `take_possession()`.  (LP: #872096)
+            * Provide a new API for dealing with possible additional unexpected errnos
+              while trying to read the lock file.  These can happen in some NFS
+              environments.  If you want to retry the read, set the lock file's
+              `retry_errnos` property to a sequence of errnos.  If one of those errnos
+              occurs, the read is unconditionally (and infinitely) retried.
+              `retry_errnos` is a property which must be set to a sequence; it has a
+              getter and a deleter too.  (LP: #882261)
+           
+           2.1.1 (2011-08-20)
+           ==================
+            * Fixed TypeError in .lock() method due to race condition in _releasetime
+              property.  Found by Stephen A. Goss. (LP: #827052)
+           
+           2.1 (2010-12-22)
+           ================
+            * Added lock.details.
+           
+           2.0.2 (2010-12-19)
+           ==================
+            * Small adjustment to doctest.
+           
+           2.0.1 (2010-11-27)
+           ==================
+            * Add missing exception to __all__.
+           
+           2.0 (2010-11-26)
+           ================
+            * Package renamed to flufl.lock.
+           
+           Earlier
+           =======
+           
+           Try `bzr log lp:flufl.lock` for details.
+        
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

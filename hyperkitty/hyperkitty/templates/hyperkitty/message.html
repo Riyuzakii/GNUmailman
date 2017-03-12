@@ -1,0 +1,46 @@
+{% extends "hyperkitty/base.html" %}
+{% load gravatar %}
+{% load i18n %}
+{% load hk_generic %}
+
+
+{% block head_title %}
+{{ message.subject }} - {{ mlist.display_name|default:mlist.name }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+{% include 'hyperkitty/fragments/month_list.html' %}
+
+    <div class="col-tn-12 col-sm-10">
+
+        <div class="message-header row">
+        <div class="col-tn-2 message-back">
+            <a href="{% url 'hk_thread' threadid=message.thread.thread_id mlist_fqdn=mlist.name %}#{{message.message_id_hash}}">
+                <span class="fa fa-chevron-left icon"></span>
+                <span class="hidden-tn hidden-xs">{% trans "thread" %}</span>
+            </a>
+        </div>
+        <div class="col-tn-10">
+            <h1>{{ message.subject }}</h1>
+        </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-9">
+                <section id="thread-content">
+                    {% include 'hyperkitty/messages/message.html' with email=message unfolded='True' %}
+                </section>
+            </div>
+            <div class="col-sm-3">
+                {% include 'hyperkitty/messages/right_col.html' %}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

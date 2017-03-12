@@ -1,0 +1,25 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+{% load nav_helpers %}
+
+{% block head_title %}
+{% trans 'Settings' %} | {{ list.fqdn_listname}} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    {% list_nav 'list_settings' 'List Settings' %}
+
+    <ul class="nav nav-tabs margin-bottom">
+        {% for section in section_names %}
+        <li {% if section.0 == visible_section %}class="active"{% endif %}><a href="{% url 'list_settings' list_id=list.list_id visible_section=section.0 %}">{{ section.1 }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <form action="{% url 'list_settings' list_id=list.list_id visible_section=visible_section %}"
+          method="post" class="form-horizontal list_settings">
+        {% bootstrap_form_horizontal form 3 8 'Save changes' %}
+    </form>
+
+{% endblock %}

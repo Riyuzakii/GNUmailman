@@ -1,0 +1,27 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+{% load nav_helpers %}
+
+{% block head_title %}
+{% trans 'Subscription settings' %} | {{ user.username }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="user-profile">
+    {% user_nav 'settings_global' 'Global settings' %}
+
+    {% if not mm_user %}
+        <div>
+            <h1>{% trans 'No preferences available' %}</h1>
+        </div>
+        <p>{% trans 'You are not yet subscribed to any lists, so you have no Mailman preferences.' %}</p>
+    {% else %}
+        <form action="{% url 'user_mailmansettings' %}" method="post" class="form-horizontal">
+            {% bootstrap_form_horizontal form 3 8 'Save changes' %}
+        </form>
+    {% endif %}
+</div>
+
+{% endblock content %}

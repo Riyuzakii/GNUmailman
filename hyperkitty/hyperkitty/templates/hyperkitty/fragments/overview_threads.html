@@ -1,0 +1,55 @@
+{% load i18n %}
+{% load hk_generic %}
+
+{% if threads %}
+
+<div class="list-group">
+    {% for thread in threads %}
+        {% if forloop.counter == 6 %}
+        <a class="list-group-item text-center more-threads" href="#">{% trans "More..." %}</a>
+        </div> <!-- close list-group -->
+        <div class="hidden-threads hidden">
+        {% endif %}
+        <a class="list-group-item" href="{% url 'hk_thread' threadid=thread.thread_id mlist_fqdn=mlist.name %}">
+            <h5 class="list-group-item-heading">
+                <span class="thread-id">#{{ forloop.counter }}</span>
+                {% if thread|is_unread_by:request.user %}
+                    <i class="fa fa-envelope" title="{% trans 'New messages in this thread' %}"></i>
+                {% endif %}
+                {{ thread.subject|strip_subject:mlist }}
+            </h5>
+            <div class="list-group-item-text">
+                {{ thread.date_active|date:"D M j, g:i a" }}
+                {% if use_mockups %}
+                {% if thread.category %}
+                    <span class="label category" style="background-color:{{thread.category.color}}">
+                        {{ thread.category.name|upper }}
+                    </span>
+                {% endif %}
+                {% endif %}
+                <ul class="list-unstyled pull-right list-stats">
+                    <li>
+                        <i class="fa fa-user"></i>
+                        {{ thread.participants_count }}
+                    </li>
+                    <li>
+                        <i class="fa fa-comment"></i>
+                        {{ thread|num_comments }}
+                    </li>
+                    <li class="hidden-tn">
+                        {% with votes=thread.get_votes %}
+                        <i class="icomoon likestatus {{ votes.status }}"></i>
+                        <span class="likestatus">+{{ votes.likes }}/-{{ votes.dislikes }}</span>
+                        {% endwith %}
+                    </li>
+                </ul>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+
+{% elif empty %}
+
+<p>{{ empty }}</p>
+
+{% endif %}

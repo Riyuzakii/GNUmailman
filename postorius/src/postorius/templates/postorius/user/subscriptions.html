@@ -1,0 +1,56 @@
+{% extends "postorius/base.html" %}
+
+{% load i18n %}
+{% load nav_helpers %}
+{% load membership_helpers %}
+
+{% block head_title %}
+{% trans 'Subscriptions' %} | {{ user.username }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="user-profile">
+    {% user_nav 'subscriptions' 'List Subscriptions' %}
+
+    {% if memberships %}
+        <p>{% trans 'You are subscribed to the following mailing lists:' %}</p>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>{% trans 'List Name' %}</th>
+                        <th>{% trans 'Subscription Address' %}</th>
+                        <th>{% trans 'Delivery Mode' %}</th>
+                        <th class="text-center">{% trans 'Roles' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for subscription in memberships %}
+                        <tr>
+                            <td><a href="{% url 'list_summary' subscription.list_id %}">{{ subscription.list_id }}</a></td>
+                            <td>{{ subscription.address }}</td>
+                            <td>{{ subscription.preferences.delivery_mode }}</td>
+                            <td>
+                                {% trans 'subscriber' %}
+                                {% user_is_list_moderator request.user subscription.list_id as is_moderator %}
+                                {% if is_moderator %}
+                                + {% trans 'moderator' %}
+                                {% endif %}
+                                {% user_is_list_owner request.user subscription.list_id as is_owner %}
+                                {% if is_owner %}
+                                + {% trans 'owner' %}
+                                {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>{% trans 'You are not yet subscribed to any lists.' %}</p>
+    {% endif %}
+</div>
+
+{% endblock content %}

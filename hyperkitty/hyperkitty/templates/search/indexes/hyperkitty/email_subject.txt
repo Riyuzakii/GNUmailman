@@ -1,0 +1,2 @@
+{% load hk_haystack %}
+{{ object.subject|nolongterms }}

@@ -1,0 +1,30 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+
+{% block head_title %}
+{% trans 'Delete' %} | {{ list.fqdn_listname }} - {{ block.super }}
+{% endblock %}
+
+{% load nav_helpers %}
+
+{% block content %}
+    {% list_nav 'list_delete' 'Delete List' %}
+
+    <p>{% trans 'Are you sure you want to permanently delete this list?' %}</p>
+    <p>{% trans 'All settings and membership data will be lost!' %}</p>
+
+    <form action="{{submit_url}}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <button class="btn btn-danger" type="submit">
+                {% blocktrans with listname=list.fqdn_listname %}
+                Delete {{ listname }}
+                {% endblocktrans %}
+            </button>
+            <a class="btn btn-default" href="{% url 'list_summary' list_id=list.list_id %}">
+                {% trans 'Cancel' %}
+            </a>
+        </div>
+    </form>
+
+{% endblock content %}

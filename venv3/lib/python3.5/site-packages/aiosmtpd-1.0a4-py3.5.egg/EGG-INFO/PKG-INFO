@@ -1,0 +1,19 @@
+Metadata-Version: 1.1
+Name: aiosmtpd
+Version: 1.0a4
+Summary: aiosmtpd - asyncio based SMTP server
+Home-page: https://github.com/aio-libs/aiosmtpd
+Author: https://github.com/aio-libs
+Author-email: UNKNOWN
+License: http://www.apache.org/licenses/LICENSE-2.0
+Description: This is a server for SMTP and related protocols, similar in utility to the
+        standard library's smtpd.py module, but rewritten to be based on asyncio for
+        Python 3.
+Keywords: email
+Platform: UNKNOWN
+Classifier: License :: OSI Approved
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Topic :: Communications :: Email :: Mail Transport Agents

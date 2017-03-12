@@ -1,0 +1,58 @@
+{% extends "hyperkitty/base.html" %}
+{% load i18n %}
+{% load gravatar %}
+{% load hk_generic %}
+{% load pagination %}
+
+
+{% block head_title %}
+{% trans "Messages by" %} {{ fullname }}{% if mlist %} - {{ mlist.display_name|default:mlist.name }} {% endif %} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+<div id="months-list" class="col-sm-2"> </div>
+
+    <div id="thread-list" class="col-sm-8">
+
+        <div class="thread-list-header page-header">
+            {% if mlist %}
+            <h1>{% trans "Messages by" %} {{ fullname }}
+                <small>{% trans "in" %} {{ mlist.display_name|default:mlist.name }}</small>
+            </h1>
+            {% else %}
+            <h1>{% trans "Messages by" %} {{ fullname }}</h1>
+            {% endif %}
+            <ul class="thread-list-info">
+                {% if mlist.display_name %}
+                <li class="list-address">
+                    {{ mlist.name }}
+                </li>
+                {% endif %}
+                <li class="discussion">
+                    {{ emails.paginator.count }} {% trans "messages" %}
+                </li>
+                <li>
+                    <a href="{% url 'hk_public_user_profile' user_id=user_id %}">
+                        {% blocktrans %}Back to {{ fullname }}'s profile{% endblocktrans %}
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+        {% for email in emails %}
+            {% include "hyperkitty/messages/summary_message.html" %}
+        {% empty %}
+            <p>{% trans "Sorry no email could be found by this user." %}</p>
+        {% endfor %}
+
+        {% paginator emails bydate=True %}
+
+    </div>
+
+</div>
+
+{% endblock %}

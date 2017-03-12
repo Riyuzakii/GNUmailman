@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load gravatar %}
+{% load hk_generic %}
+{% load cache %}
+
+<!-- right column -->
+<section id="message-overview-info">
+
+    <p>
+        <a href="{% url 'hk_thread' threadid=message.thread.thread_id mlist_fqdn=mlist.name %}#{{message.message_id_hash}}">
+            <i class="fa fa-fw fa-comments"></i>
+            <span class="hidden-tn hidden-xs">{% trans "Back to the thread" %}</span>
+        </a>
+    </p>
+
+    <p>
+        <a href="{% url 'hk_list_overview' mlist_fqdn=mlist.name %}">
+            <i class="fa fa-fw fa-envelope-o"></i>
+            {% trans "Back to the list" %}
+        </a>
+    </p>
+
+    {% if user.is_staff or user.is_superuser %}
+    <div class="panel panel-danger">
+        <div class="panel-body">
+            <div><i class="fa fa-fw fa-trash"></i>
+               <a href="{% url 'hk_message_delete' mlist_fqdn=mlist.name message_id_hash=message.message_id_hash %}"
+                  >{% trans "Delete this message" %}</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</section>

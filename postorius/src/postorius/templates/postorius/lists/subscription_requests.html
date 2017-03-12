@@ -1,0 +1,39 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+{% load nav_helpers %}
+
+{% block head_title %}
+{% trans 'Subscription requests' %} | {{ list.fqdn_listname }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    {% list_nav 'list_subscription_requests' 'Subscription Requests' %}
+
+    {% if list.requests|length > 0 %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>{% trans 'E-Mail Address' %}</th>
+                        <th>{% trans 'Actions' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in list.requests %}
+                    <tr>
+                        <td>{{ request.email }}</td>
+                        <td>
+                            <a href="{% url 'handle_subscription_request' list.list_id request.token 'accept' %}" class="btn btn-xs btn-success">{% trans 'Accept' %}</a>
+                            <a href="{% url 'handle_subscription_request' list.list_id request.token 'reject' %}" class="btn btn-xs btn-danger">{% trans 'Reject' %}</a>
+                            <a href="{% url 'handle_subscription_request' list.list_id request.token 'discard' %}" class="btn btn-xs btn-danger">{% trans 'Discard' %}</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>{% trans 'There are currently no subscription requests for this list.' %}</p>
+    {% endif %}
+{% endblock %}

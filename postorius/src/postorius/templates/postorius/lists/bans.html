@@ -1,0 +1,61 @@
+{% extends "postorius/base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+{% load nav_helpers %}
+{% load pagination %}
+
+{% block head_title %}
+{% trans 'Banned addresses' %} | {{ list.fqdn_listname }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    {% list_nav 'list_bans' 'Banned addresses' %}
+
+    <!-- Add ban -->
+    <form action="{% url 'list_bans' list.list_id %}" method="POST" class="form-inline bans-add-form">
+        {% csrf_token %}
+        <div class="form-group {% if addban_form.email.errors %}has-error{% endif %}">
+            {% if addban_form.email.errors %}
+                <div class="alert alert-danger">{{ addban_form.email.errors }}</div>
+            {% endif %}
+            {{ addban_form.email.label_tag }}
+            {{ addban_form.email|add_form_control }}
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" name="add">{% trans 'Ban email' %}</button>
+        </div>
+        <p id="help-{{ addban_form.email.id_for_label }}" class="help-block">
+            {{ addban_form.email.help_text }}
+        </p>
+    </form>
+
+    <!-- Unban -->
+    <h4>{% trans 'Currently banned addresses' %}</h4>
+
+    {% if banned_addresses|length > 0 %}
+    <table class="table bans-current">
+        <tbody>
+            {% for ban in banned_addresses %}
+            <tr>
+                <td>{{ ban.email }}</td>
+                <td>
+                <form action="{% url 'list_bans' list.list_id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="email" value="{{ ban.email }}" />
+                    <button class="btn btn-danger btn-xs" type="submit" name="del"
+                            title="{% trans 'Un-ban this address' %}">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% paginator banned_addresses %}
+    {% else %}
+    <p>{% trans 'No addresses are currently banned.' %}</p>
+    {% endif %}
+
+{% endblock %}

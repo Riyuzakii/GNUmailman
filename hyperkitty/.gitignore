@@ -1,0 +1,15 @@
+*pyc
+*.swp
+*~
+*.egg-info
+doc/_build
+doc/_static
+/dist
+*.orig
+.tox
+.coverage
+coverage
+
+^.idea/
+.DS_Store
+.sass-cache

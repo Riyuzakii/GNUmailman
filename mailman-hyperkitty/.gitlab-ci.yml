@@ -1,0 +1,10 @@
+image: maxking/mailman-ci-runner
+
+sqlite:
+  script:
+  - tox -e 'py{34,35}-head-coverage'
+
+
+lint:
+  script:
+  - tox -e lint

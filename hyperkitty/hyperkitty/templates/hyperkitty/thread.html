@@ -1,0 +1,155 @@
+{% extends "hyperkitty/base.html" %}
+
+{% load i18n %}
+{% load gravatar %}
+{% load hk_generic %}
+{% load staticfiles %}
+
+
+{% block head_title %}
+{{ subject }} - {{ mlist.display_name|default:mlist.name }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="row view-thread">
+
+{% include 'hyperkitty/fragments/month_list.html' %}
+
+    <div class="col-tn-12 col-sm-10">
+
+        <!-- thread header: navigation (older/newer), thread title -->
+        <div class="thread-header row">
+            {% if use_mockups %}
+            <div class="thread-category">
+                {% include 'hyperkitty/threads/category.html' %}
+            </div>
+            {% endif %}
+            {% with prev_thread=thread.prev_thread next_thread=thread.next_thread %}
+            <div class="col-tn-2">
+                {% if next_thread %}
+                <a id="next-thread" class="btn btn-default btn-xs {% if not next_thread %}disabled{% endif %}"
+                        {% if next_thread %}title="{{ next_thread.subject|strip_subject:mlist|escape }}"{% endif %}
+                        href="{% url 'hk_thread' threadid=next_thread.thread_id mlist_fqdn=mlist.name %}">
+                    <span class="fa fa-chevron-left"></span>
+                    <span class="hidden-tn hidden-xs">{% trans "newer" %}</span>
+                </a>
+               {% endif %}
+            </div>
+            <div class="col-tn-8">
+                <h3>{{ subject }}</h3>
+            </div>
+            <div class="col-tn-2 right">
+                <a id="prev-thread" class="btn btn-default btn-xs {% if not prev_thread %}disabled{% endif %}"
+                    {% if prev_thread %}
+                    title="{{ prev_thread.subject|strip_subject:mlist|escape }}"
+                    href="{% url 'hk_thread' threadid=prev_thread.thread_id mlist_fqdn=mlist.name %}"
+                    {% endif %}>
+                    <span class="fa fa-chevron-right"></span>
+                    <span class="hidden-tn hidden-xs">{% trans "older" %}</span>
+                </a>
+            </div>
+            <div class="thread-titles">
+                <div class="hidden-tn hidden-xs col-sm-6">
+                {% if next_thread %}
+                    <a href="{% url 'hk_thread' threadid=next_thread.thread_id mlist_fqdn=mlist.name %}"
+                       title="{{ next_thread.subject|strip_subject:mlist|escape }}"
+                       >{{ next_thread.subject|strip_subject:mlist|truncatesmart:"35" }}</a>
+                {% endif %}
+                </div>
+                <div class="right hidden-tn hidden-xs col-sm-6">
+                {% if prev_thread %}
+                    <a href="{% url 'hk_thread' threadid=prev_thread.thread_id mlist_fqdn=mlist.name %}"
+                       title="{{ prev_thread.subject|strip_subject:mlist|escape }}"
+                       >{{ prev_thread.subject|strip_subject:mlist|truncatesmart:"35" }}</a>
+                {% endif %}
+                </div>
+            </div>
+            {% endwith %}
+        </div> <!-- /thread-header -->
+
+        <!-- nav tabs, for smaller screens -->
+        <ul class="nav nav-tabs hidden-sm hidden-md hidden-lg">
+            <li class="active">
+                <a href="#home">{% trans "First Post" %}</a>
+            </li>
+            <li>
+                <a href="#replies">{% trans "Replies" %}</a>
+            </li>
+            <li>
+                <a href="#stats">{% trans "Stats" %}</a>
+            </li>
+            <li class="dropdown">
+                {% include 'hyperkitty/fragments/month_list.html' with show_dropdown=True %}
+            </li>
+        </ul> <!-- /navtab -->
+
+        <div class="row">
+            <div class="col-sm-9">
+                <!-- main section, the email thread -->
+                <div id="thread-content">
+
+                    <!-- Start first email -->
+                    {% include 'hyperkitty/messages/message.html' with email=starting_email unfolded='True' %}
+                    <!-- End first email -->
+
+                    <p class="sort-mode">
+                        {% if sort_mode == "date" %}
+                        <a href="{% url 'hk_thread' threadid=thread.thread_id mlist_fqdn=mlist.name %}?sort=thread"
+                            >{% trans "Show replies by thread" %}</a>
+                        {% else %}
+                        <a href="{% url 'hk_thread' threadid=thread.thread_id mlist_fqdn=mlist.name %}?sort=date"
+                            >{% trans "Show replies by date" %}</a>
+                        {% endif %}
+                    </p>
+
+                    <div class="anchor-link">
+                        <a id="replies"></a>
+                    </div>
+                    <div class="replies">
+                        {% if is_bot %}
+                            {% include 'hyperkitty/ajax/replies.html' %}
+                        {% else %}
+                            <img alt="{% trans 'Loading...' %}" class="ajaxloader" src="{% static 'hyperkitty/img/ajax-loader.gif' %}" />
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="anchor-link">
+                    <a id="stats"></a>
+                </div>
+                {% include 'hyperkitty/threads/right_col.html' %}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- end of content -->
+{% endblock %}
+
+{% block additionaljs %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        //enable tooltips for thread buttons
+        $("btn#next-thread").tooltip();
+        $("btn#prev-thread").tooltip();
+
+        setup_category();
+        setup_tags();
+        setup_favorites();
+        // Hide quotes by default in the thread view
+        fold_quotes("div.container");
+        // Load the replies
+        update_thread_replies("{% url 'hk_thread_replies' threadid=thread.thread_id mlist_fqdn=mlist.name %}?sort={{sort_mode}}&last_view={{last_view|date:'U'}}");
+        setup_unreadnavbar("#unreadnavbar");
+    });
+</script>
+
+{% endblock %}

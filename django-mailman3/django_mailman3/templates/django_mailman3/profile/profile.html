@@ -1,0 +1,75 @@
+{% extends "django_mailman3/profile/base.html" %}
+{% load i18n %}
+{% load gravatar %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+
+{% block user_profile_content %}
+
+    <div class="row">
+
+    <form method="post" action="{% url 'mm_user_profile' %}" class="form-horizontal user-profile">
+        {% csrf_token %}
+
+        <div class="hidden-tn hidden-xs col-sm-4 col-sm-push-8 col-md-4 col-md-push-8 col-lg-6 col-lg-push-6">
+            <div class="gravatar">
+                <a href="{{ gravatar_url }}">{% gravatar user.email 100 %}</a>
+                <p><a href="{{ gravatar_url }}">{% trans "Edit on" %} {{ gravatar_shortname }}</a></p>
+            </div>
+        </div>
+
+        <div class="col-sm-8 col-sm-pull-4 col-md-8 col-md-pull-4 col-lg-6 col-lg-pull-6">
+            {% bootstrap_form_horizontal form 3 9 fold_class='sm' %}
+            <div class="form-group">
+                <label class="col-sm-3 control-label">{% trans 'Main email:' %}</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">{{ user.email}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">{% trans 'Other emails:' %}</label>
+                <div class="col-sm-9">
+                        <ul class="form-control-static list-unstyled">
+                        {% for address in other_addresses %}
+                            <li>{{ address }}</li>
+                        {% empty %}
+                            <li>{% trans "(no other email)" %}</li>
+                        {% endfor %}
+                            <li>
+                                <i class="fa fa-link" aria-hidden="true"></i>
+                                <a href="{% url 'account_email' %}">
+                                    {% trans "Link another address" %}
+                                </a>
+                            </li>
+                        </ul>
+                </div>
+            </div>
+            <div class="form-group hidden-sm hidden-md hidden-lg">
+                <label class="col-sm-3 control-label">{% trans 'Avatar:' %}</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">
+                        <a href="{{ gravatar_url }}">{% gravatar user.email 60 %}</a>
+                        <a href="{{ gravatar_url }}">{% trans "Edit on" %} {{ gravatar_shortname }}</a>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">{% trans 'Joined on:' %}</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">{{ user.date_joined|date:"N j Y, H:i" }}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                <button type="submit" class="submit btn btn-primary">{% trans "Update" %}</button>
+                {% trans "or" %} <a href="#" class="cancel" onclick="document.forms[0].reset(); return false;">{% trans "cancel" %}</a>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    </div>
+
+{% endblock %}

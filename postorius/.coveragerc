@@ -1,0 +1,10 @@
+[run]
+source = src/postorius
+omit =
+    src/postorius/tests/*.py
+    src/postorius/tests/*/*.py
+    src/postorius/doc/*.py
+    src/postorius/migrations/*.py
+
+[html]
+directory = coverage
